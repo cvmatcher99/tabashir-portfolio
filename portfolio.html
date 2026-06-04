@@ -138,28 +138,52 @@ function renderList(data) {
   function traineeCard(id, t) {
     const avatar = t.photo
       ? `<img src="${escapeHtml(t.photo)}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
-      : `<span style="font-size:1.2rem;font-weight:700;color:#2563eb">${initials(t.name)}</span>`;
-    const count     = (t.progress || []).length;
-    const tasksDone = (t.tasks || []).filter(tk => tk.status === 'done').length;
-    const tasksTotal= (t.tasks || []).length;
-    const att       = (t.attendance || []);
-    const present   = att.filter(a => a.status === 'present' || a.status === 'late').length;
-    const attPct    = att.length ? Math.round(present / att.length * 100) + '%' : '—';
+      : `<span style="font-size:1.4rem;font-weight:700;color:#2563eb">${initials(t.name)}</span>`;
+    const tasksDone  = (t.tasks || []).filter(tk => tk.status === 'done').length;
+    const tasksTotal = (t.tasks || []).length;
+    const att        = (t.attendance || []);
+    const present    = att.filter(a => a.status === 'present' || a.status === 'late').length;
+    const attPct     = att.length ? Math.round(present / att.length * 100) + '%' : '—';
+    const trackColor = t.track === 'security' ? '#b91c1c' : '#1d4ed8';
+    const trackBg    = t.track === 'security' ? '#fee2e2' : '#dbeafe';
+
+    // task progress bar width
+    const barW = tasksTotal ? Math.round(tasksDone / tasksTotal * 100) : 0;
+
     return `
-      <a href="portfolio.html?id=${encodeURIComponent(id)}" style="text-decoration:none;display:block;margin-bottom:.5rem">
-        <div style="display:flex;align-items:center;gap:.9rem;padding:.85rem 1.1rem;background:#fff;border:1px solid #e2e8f0;border-radius:.7rem;transition:all .15s"
-             onmouseover="this.style.borderColor='#2563eb';this.style.boxShadow='0 0 0 3px rgba(37,99,235,.07)'"
-             onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow='none'">
-          <div style="width:42px;height:42px;border-radius:50%;background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden">${avatar}</div>
-          <div style="flex:1;min-width:0">
-            <div style="font-weight:600;font-size:.9rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(t.name)}</div>
-            <div style="font-size:.73rem;color:#64748b;margin-top:.15rem;display:flex;gap:.6rem;flex-wrap:wrap">
-              <span>${count} entries</span>
-              ${tasksTotal ? `<span>Tasks: ${tasksDone}/${tasksTotal}</span>` : ''}
-              <span>Attendance: ${attPct}</span>
-            </div>
+      <a href="portfolio.html?id=${encodeURIComponent(id)}" style="text-decoration:none">
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:1.1rem;
+                    display:flex;flex-direction:column;align-items:center;text-align:center;
+                    gap:.6rem;transition:all .18s;height:100%"
+             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(37,99,235,.10)';this.style.borderColor='#93c5fd'"
+             onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='#e2e8f0'">
+
+          <!-- Avatar -->
+          <div style="width:60px;height:60px;border-radius:50%;background:#eff6ff;border:3px solid ${trackBg};
+                      display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+            ${avatar}
           </div>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+
+          <!-- Name -->
+          <div style="font-weight:700;font-size:.88rem;color:#1e293b;line-height:1.3;
+                      overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">
+            ${escapeHtml(t.name)}
+          </div>
+
+          <!-- Stats row -->
+          <div style="display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap">
+            ${tasksTotal ? `<span style="background:#f1f5f9;color:#475569;padding:.15rem .5rem;border-radius:6px;font-size:.68rem;font-weight:600">${tasksDone}/${tasksTotal} tasks</span>` : ''}
+            <span style="background:#f1f5f9;color:#475569;padding:.15rem .5rem;border-radius:6px;font-size:.68rem;font-weight:600">
+              ${attPct} att.
+            </span>
+          </div>
+
+          <!-- Task progress bar -->
+          ${tasksTotal ? `
+          <div style="width:100%;height:5px;background:#e2e8f0;border-radius:3px;overflow:hidden">
+            <div style="height:100%;width:${barW}%;background:${barW===100?'#16a34a':'#2563eb'};border-radius:3px;transition:width .4s"></div>
+          </div>` : ''}
+
         </div>
       </a>`;
   }
@@ -177,7 +201,9 @@ function renderList(data) {
           <h2 style="font-size:1rem;font-weight:700;color:#1e293b">${track.label}</h2>
           <span style="background:${track.bg};color:${track.color};border:1px solid ${track.border};padding:.15rem .65rem;border-radius:1rem;font-size:.72rem;font-weight:600">${group.length}</span>
         </div>
-        ${group.map(([id, t]) => traineeCard(id, t)).join('')}
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem">
+          ${group.map(([id, t]) => traineeCard(id, t)).join('')}
+        </div>
       </div>`;
   });
 
