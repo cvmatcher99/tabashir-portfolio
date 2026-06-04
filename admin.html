@@ -8,77 +8,124 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh}
-.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.header h1{font-size:1.25rem;font-weight:700;color:#2563eb}
+.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.header h1{font-size:1.15rem;font-weight:700;color:#2563eb}
 .header h1 span{color:#1e293b}
-.container{max-width:1100px;margin:0 auto;padding:1.5rem}
-.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border:none;border-radius:.5rem;font-family:inherit;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .15s}
-.btn-primary{background:#2563eb;color:#fff}
-.btn-primary:hover{background:#1d4ed8}
-.btn-secondary{background:#f1f5f9;color:#475569}
-.btn-secondary:hover{background:#e2e8f0}
-.btn-danger{background:#fef2f2;color:#dc2626}
-.btn-danger:hover{background:#fee2e2}
-.btn-sm{padding:.35rem .75rem;font-size:.8rem}
-.card{background:#fff;border:1px solid #e2e8f0;border-radius:.75rem;padding:1.25rem;margin-bottom:1rem}
-.card h2{font-size:1.05rem;font-weight:600;margin-bottom:1rem}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.form-group{display:flex;flex-direction:column;gap:.3rem}
+.container{max-width:1200px;margin:0 auto;padding:1.25rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border:none;border-radius:.5rem;font-family:inherit;font-size:.825rem;font-weight:500;cursor:pointer;transition:all .15s}
+.btn-primary{background:#2563eb;color:#fff}.btn-primary:hover{background:#1d4ed8}
+.btn-secondary{background:#f1f5f9;color:#475569}.btn-secondary:hover{background:#e2e8f0}
+.btn-danger{background:#fef2f2;color:#dc2626}.btn-danger:hover{background:#fee2e2}
+.btn-success{background:#f0fdf4;color:#16a34a}.btn-success:hover{background:#dcfce7}
+.btn-sm{padding:.3rem .65rem;font-size:.775rem}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:.75rem;padding:1.1rem;margin-bottom:.75rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.form-group{display:flex;flex-direction:column;gap:.25rem}
 .form-group.full{grid-column:1/-1}
-.form-group label{font-size:.8rem;font-weight:500;color:#64748b}
-.form-group input,.form-group textarea,.form-group select{padding:.5rem .75rem;border:1px solid #e2e8f0;border-radius:.5rem;font-family:inherit;font-size:.875rem;outline:none;transition:border .15s}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.form-group textarea{resize:vertical;min-height:60px}
-.trainee-list{display:grid;gap:.5rem;margin-top:1rem}
-.trainee-item{display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;background:#fff;border:1px solid #e2e8f0;border-radius:.5rem;cursor:pointer;transition:all .15s}
-.trainee-item:hover{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.form-group label{font-size:.775rem;font-weight:500;color:#64748b}
+.form-group input,.form-group textarea,.form-group select{padding:.45rem .7rem;border:1px solid #e2e8f0;border-radius:.5rem;font-family:inherit;font-size:.85rem;outline:none;transition:border .15s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.form-group textarea{resize:vertical;min-height:56px}
+.trainee-list{display:grid;gap:.4rem;margin-top:.75rem}
+.trainee-item{display:flex;align-items:center;gap:.75rem;padding:.65rem .85rem;background:#fff;border:1px solid #e2e8f0;border-radius:.5rem;cursor:pointer;transition:all .15s}
+.trainee-item:hover{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.07)}
 .trainee-item.active{border-color:#2563eb;background:#eff6ff}
-.trainee-avatar{width:40px;height:40px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-weight:600;color:#64748b;font-size:.85rem;overflow:hidden;flex-shrink:0}
+.trainee-avatar{width:36px;height:36px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-weight:600;color:#64748b;font-size:.78rem;overflow:hidden;flex-shrink:0}
 .trainee-avatar img{width:100%;height:100%;object-fit:cover}
 .trainee-info{flex:1;min-width:0}
-.trainee-info h3{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.trainee-info p{font-size:.75rem;color:#64748b}
-.trainee-actions{display:flex;gap:.35rem;flex-shrink:0}
-.empty-state{text-align:center;padding:2.5rem 1rem;color:#94a3b8}
-.empty-state svg{width:48px;height:48px;margin-bottom:.75rem;opacity:.5}
-.empty-state p{font-size:.9rem}
-.progress-entry{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem;border:1px solid #e2e8f0;border-radius:.5rem;margin-bottom:.5rem}
-.progress-entry .entry-cat{font-size:.65rem;font-weight:600;text-transform:uppercase;padding:.15rem .5rem;border-radius:1rem;flex-shrink:0}
+.trainee-info h3{font-size:.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trainee-info p{font-size:.72rem;color:#64748b;margin-top:1px}
+.trainee-actions{display:flex;gap:.25rem;flex-shrink:0}
+.empty-state{text-align:center;padding:2rem 1rem;color:#94a3b8}
+.empty-state p{font-size:.875rem}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:1.25rem;align-items:start}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.section-title h2{font-size:1rem;font-weight:600}
+
+/* Tabs */
+.tabs{display:flex;border-bottom:2px solid #e2e8f0;margin-bottom:1rem;gap:0}
+.tab-btn{padding:.55rem 1rem;font-family:inherit;font-size:.825rem;font-weight:500;border:none;background:none;cursor:pointer;color:#94a3b8;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab-btn.active{color:#2563eb;border-bottom-color:#2563eb}
+.tab-btn:hover:not(.active){color:#475569}
+.tab-pane{display:none}.tab-pane.active{display:block}
+
+/* Progress entries */
+.progress-entry{display:flex;align-items:flex-start;gap:.65rem;padding:.65rem;border:1px solid #e2e8f0;border-radius:.5rem;margin-bottom:.5rem}
+.entry-cat{font-size:.6rem;font-weight:600;text-transform:uppercase;padding:.12rem .45rem;border-radius:1rem;flex-shrink:0;margin-top:.1rem}
 .cat-project{background:#dbeafe;color:#1d4ed8}
 .cat-skill{background:#dcfce7;color:#16a34a}
 .cat-achievement{background:#fef9c3;color:#a16207}
 .cat-certificate{background:#f3e8ff;color:#7c3aed}
-.progress-entry .entry-body{flex:1;min-width:0}
-.progress-entry .entry-body h4{font-size:.85rem;font-weight:600}
-.progress-entry .entry-body .entry-meta{font-size:.75rem;color:#94a3b8;margin-top:.15rem}
-.progress-entry .entry-body p{font-size:.8rem;color:#475569;margin-top:.25rem}
-.stars{display:inline-flex;gap:2px;color:#f59e0b}
-.stars .star{font-size:.85rem}
-.stars .star.empty{color:#e2e8f0}
-.layout{display:grid;grid-template-columns:340px 1fr;gap:1.5rem;align-items:start}
-.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
-.section-title h2{font-size:1.05rem;font-weight:600}
+.entry-body{flex:1;min-width:0}
+.entry-body h4{font-size:.82rem;font-weight:600}
+.entry-meta{font-size:.72rem;color:#94a3b8;margin-top:.1rem}
+.entry-body p{font-size:.78rem;color:#475569;margin-top:.2rem}
+.stars{display:inline-flex;gap:2px;color:#f59e0b}.stars .star{font-size:.8rem}.stars .star.empty{color:#e2e8f0}
+
+/* Tasks */
+.task-card{border:1px solid #e2e8f0;border-radius:.6rem;padding:.9rem;margin-bottom:.6rem}
+.task-header{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem}
+.task-title{font-size:.9rem;font-weight:600;color:#1e293b}
+.task-meta{font-size:.75rem;color:#64748b;margin-top:.2rem}
+.task-status{display:flex;align-items:center;gap:.4rem;margin-top:.65rem;flex-wrap:wrap}
+.status-btn{padding:.28rem .75rem;border:1px solid #e2e8f0;border-radius:1rem;font-size:.72rem;font-weight:500;cursor:pointer;font-family:inherit;background:#f8fafc;color:#64748b;transition:all .15s}
+.status-btn:hover{border-color:#94a3b8}
+.status-btn.active-ns{background:#f1f5f9;border-color:#94a3b8;color:#475569}
+.status-btn.active-ip{background:#fef9c3;border-color:#a16207;color:#a16207}
+.status-btn.active-nr{background:#fef2f2;border-color:#dc2626;color:#dc2626}
+.status-btn.active-done{background:#dcfce7;border-color:#16a34a;color:#16a34a}
+.grade-row{display:flex;align-items:center;gap:.5rem;margin-top:.5rem}
+.grade-row label{font-size:.75rem;color:#64748b;font-weight:500}
+.grade-row input{width:72px;padding:.3rem .5rem;border:1px solid #e2e8f0;border-radius:.4rem;font-size:.82rem;font-family:inherit;outline:none}
+.grade-row input:focus{border-color:#2563eb}
+.feedback-row{margin-top:.45rem}
+.feedback-row textarea{width:100%;padding:.4rem .6rem;border:1px solid #e2e8f0;border-radius:.4rem;font-size:.78rem;font-family:inherit;resize:none;outline:none;min-height:52px}
+.feedback-row textarea:focus{border-color:#2563eb}
+.task-save-btn{margin-top:.5rem}
+
+/* Attendance */
+.att-controls{display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem;flex-wrap:wrap}
+.att-controls input[type=date]{padding:.4rem .6rem;border:1px solid #e2e8f0;border-radius:.45rem;font-family:inherit;font-size:.82rem;outline:none}
+.att-controls input[type=date]:focus{border-color:#2563eb}
+.att-btn{padding:.38rem .85rem;border:1px solid #e2e8f0;border-radius:1rem;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;background:#f8fafc;transition:all .15s}
+.att-btn.present{background:#dcfce7;border-color:#16a34a;color:#15803d}
+.att-btn.absent{background:#fee2e2;border-color:#dc2626;color:#b91c1c}
+.att-btn.late{background:#fef9c3;border-color:#a16207;color:#92400e}
+.att-log{display:grid;gap:.35rem}
+.att-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem .75rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:.45rem}
+.att-row .att-date{font-size:.82rem;font-weight:500}
+.att-badge{padding:.18rem .65rem;border-radius:1rem;font-size:.72rem;font-weight:600}
+.att-badge.present{background:#dcfce7;color:#15803d}
+.att-badge.absent{background:#fee2e2;color:#b91c1c}
+.att-badge.late{background:#fef9c3;color:#92400e}
+.att-summary{display:flex;gap:.5rem;margin-bottom:.75rem;flex-wrap:wrap}
+.att-stat{padding:.3rem .7rem;border-radius:.4rem;font-size:.78rem;font-weight:600}
+
+/* Track badges */
+.track-badge{display:inline-block;padding:.18rem .6rem;border-radius:1rem;font-size:.65rem;font-weight:600}
+.track-appdev{background:#dbeafe;color:#1d4ed8}
+.track-security{background:#fee2e2;color:#b91c1c}
+
+/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
 .modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:#fff;border-radius:.75rem;padding:1.5rem;width:90%;max-width:500px;max-height:85vh;overflow-y:auto;transform:scale(.95);transition:transform .2s}
+.modal{background:#fff;border-radius:.75rem;padding:1.4rem;width:90%;max-width:490px;max-height:88vh;overflow-y:auto;transform:scale(.96);transition:transform .2s}
 .modal-overlay.open .modal{transform:scale(1)}
-.modal h2{font-size:1.1rem;font-weight:600;margin-bottom:1rem}
-.modal-footer{display:flex;justify-content:flex-end;gap:.5rem;margin-top:1.25rem}
-@media(max-width:768px){
-  .layout{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-}
+.modal h2{font-size:1rem;font-weight:600;margin-bottom:.85rem}
+.modal-footer{display:flex;justify-content:flex-end;gap:.5rem;margin-top:1rem}
+@media(max-width:768px){.layout{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>📋 <span>Portfolio Maker</span></h1>
-  <div style="font-size:.8rem;color:#94a3b8">Admin Panel</div>
+  <h1>📋 <span>Portfolio Maker</span> — Admin</h1>
+  <a href="portfolio.html" target="_blank" style="font-size:.8rem;color:#2563eb;text-decoration:none">View Portfolios ↗</a>
 </div>
 
 <div class="container">
   <div class="layout">
+
     <!-- Left: Trainee List -->
     <div>
       <div class="card">
@@ -90,24 +137,54 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
       </div>
     </div>
 
-    <!-- Right: Progress -->
+    <!-- Right: Detail Panel -->
     <div>
       <div id="progressPanel" style="display:none">
         <div class="card">
           <div class="section-title">
-            <h2 id="progressTitle">Progress</h2>
-            <div style="display:flex;gap:.5rem">
-              <button class="btn btn-sm btn-primary" onclick="openProgressModal()">+ Entry</button>
-              <button class="btn btn-sm btn-secondary" onclick="viewPortfolio()">View Portfolio ↗</button>
+            <div>
+              <h2 id="progressTitle">Trainee</h2>
+              <div id="traineeTrackBadge" style="margin-top:.3rem"></div>
             </div>
+            <button class="btn btn-sm btn-secondary" onclick="viewPortfolio()">Portfolio ↗</button>
           </div>
-          <div id="progressEntries"></div>
+
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('progress',this)">Progress</button>
+            <button class="tab-btn" onclick="switchTab('tasks',this)">Tasks</button>
+            <button class="tab-btn" onclick="switchTab('attendance',this)">Attendance</button>
+          </div>
+
+          <!-- Progress Tab -->
+          <div id="tab-progress" class="tab-pane active">
+            <div style="display:flex;justify-content:flex-end;margin-bottom:.6rem">
+              <button class="btn btn-sm btn-primary" onclick="openProgressModal()">+ Entry</button>
+            </div>
+            <div id="progressEntries"></div>
+          </div>
+
+          <!-- Tasks Tab -->
+          <div id="tab-tasks" class="tab-pane">
+            <div id="tasksContent"></div>
+          </div>
+
+          <!-- Attendance Tab -->
+          <div id="tab-attendance" class="tab-pane">
+            <div class="att-controls">
+              <input type="date" id="attDate">
+              <button class="att-btn present" onclick="markAttendance('present')">✓ Present</button>
+              <button class="att-btn late"    onclick="markAttendance('late')">⏱ Late</button>
+              <button class="att-btn absent"  onclick="markAttendance('absent')">✗ Absent</button>
+            </div>
+            <div class="att-summary" id="attSummary"></div>
+            <div class="att-log" id="attLog"></div>
+          </div>
         </div>
       </div>
+
       <div id="noSelection" class="card">
         <div class="empty-state">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
-          <p>Select a trainee to manage their progress</p>
+          <p>Select a trainee to manage their progress, tasks and attendance.</p>
         </div>
       </div>
     </div>
@@ -124,8 +201,11 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
         <input id="tName" placeholder="Full name">
       </div>
       <div class="form-group">
-        <label>Role / Department</label>
-        <input id="tRole" placeholder="e.g. Frontend Developer">
+        <label>Track *</label>
+        <select id="tTrack">
+          <option value="appdev">Applications Development</option>
+          <option value="security">Security & Forensics</option>
+        </select>
       </div>
       <div class="form-group">
         <label>Start Date</label>
@@ -173,10 +253,8 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
         <label>Rating (1-5)</label>
         <select id="pRating">
           <option value="0">No rating</option>
-          <option value="1">⭐</option>
-          <option value="2">⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
+          <option value="1">⭐</option><option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option>
           <option value="5">⭐⭐⭐⭐⭐</option>
         </select>
       </div>
@@ -202,277 +280,346 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
 
 <script>
 const STORAGE_KEY = 'tabashir_portfolios';
-let selectedTraineeId = null;
-let editingTraineeId = null;
-let editingProgressIdx = null;
+let selectedId = null, editingTraineeId = null, editingProgressIdx = null;
+let activeTab = 'progress';
 
-function getData() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-}
-function setData(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-function genId() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-}
-function initials(name) {
-  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-}
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str || '';
-  return div.innerHTML;
+// ── Task definitions per track ────────────────────────────────────────────
+const TRACK_TASKS = {
+  appdev: [
+    { id:'appdev-w1', week:1, title:'Requirements Analysis & System Design',
+      desc:'Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.' }
+  ],
+  security: [
+    { id:'sec-w1', week:1, title:'Database Audit',
+      desc:'Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.' }
+  ]
+};
+
+const TRACK_LABELS = { appdev:'Applications Development', security:'Security & Forensics' };
+
+// ── Storage ───────────────────────────────────────────────────────────────
+function getData() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+function setData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+function genId()  { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function initials(n) { return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+function esc(s) { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function renderStars(n){let s='';for(let i=1;i<=5;i++)s+=`<span class="star${i>n?' empty':''}">★</span>`;return`<span class="stars">${s}</span>`;}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+function switchTab(tab, btn) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  if (tab === 'tasks') renderTasks();
+  if (tab === 'attendance') renderAttendance();
 }
 
-function renderStars(n) {
-  let s = '';
-  for (let i = 1; i <= 5; i++) s += `<span class="star${i > n ? ' empty' : ''}">★</span>`;
-  return `<span class="stars">${s}</span>`;
-}
-
+// ── Trainee list ──────────────────────────────────────────────────────────
 function renderTrainees() {
-  const data = getData();
-  const ids = Object.keys(data);
+  const data = getData(), ids = Object.keys(data);
   const el = document.getElementById('traineeList');
-  if (!ids.length) {
-    el.innerHTML = '<div class="empty-state"><p>No trainees yet. Click "+ Add" to get started.</p></div>';
-    return;
-  }
+  if (!ids.length) { el.innerHTML='<div class="empty-state"><p>No trainees yet. Click "+ Add".</p></div>'; return; }
   el.innerHTML = ids.map(id => {
     const t = data[id];
-    const avatarContent = t.photo
-      ? `<img src="${escapeHtml(t.photo)}" alt="${escapeHtml(t.name)}">`
-      : initials(t.name);
-    return `<div class="trainee-item${selectedTraineeId === id ? ' active' : ''}" onclick="selectTrainee('${id}')">
-      <div class="trainee-avatar">${avatarContent}</div>
+    const av = t.photo ? `<img src="${esc(t.photo)}" alt="">` : initials(t.name);
+    const trackCls = t.track === 'security' ? 'track-security' : 'track-appdev';
+    const trackLbl = TRACK_LABELS[t.track] || t.track || '';
+    const tasksDone = (t.tasks||[]).filter(tk=>tk.status==='done').length;
+    const tasksTotal = (t.tasks||[]).length;
+    return `<div class="trainee-item${selectedId===id?' active':''}" onclick="selectTrainee('${id}')">
+      <div class="trainee-avatar">${av}</div>
       <div class="trainee-info">
-        <h3>${escapeHtml(t.name)}</h3>
-        <p>${escapeHtml(t.role || 'No role')} · ${(t.progress || []).length} entries</p>
+        <h3>${esc(t.name)}</h3>
+        <p><span class="track-badge ${trackCls}">${trackLbl}</span> · ${(t.progress||[]).length} entries · ${tasksDone}/${tasksTotal} tasks</p>
       </div>
       <div class="trainee-actions">
-        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();editTrainee('${id}')" title="Edit">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteTrainee('${id}')" title="Delete">🗑</button>
+        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();editTrainee('${id}')">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteTrainee('${id}')">🗑</button>
       </div>
     </div>`;
   }).join('');
 }
 
 function selectTrainee(id) {
-  selectedTraineeId = id;
+  selectedId = id;
   renderTrainees();
+  const data = getData(), t = data[id];
+  document.getElementById('noSelection').style.display = 'none';
+  document.getElementById('progressPanel').style.display = '';
+  document.getElementById('progressTitle').textContent = t.name;
+  const trackCls = t.track==='security'?'track-security':'track-appdev';
+  document.getElementById('traineeTrackBadge').innerHTML = `<span class="track-badge ${trackCls}">${TRACK_LABELS[t.track]||''}</span>`;
+  // reset to first tab
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
+  document.querySelectorAll('.tab-pane').forEach((p,i)=>p.classList.toggle('active',i===0));
+  activeTab='progress';
   renderProgress();
+  // pre-set today's date in attendance
+  document.getElementById('attDate').value = new Date().toISOString().slice(0,10);
 }
 
+// ── Progress tab ──────────────────────────────────────────────────────────
 function renderProgress() {
-  const noSel = document.getElementById('noSelection');
-  const panel = document.getElementById('progressPanel');
-  if (!selectedTraineeId) {
-    noSel.style.display = '';
-    panel.style.display = 'none';
-    return;
-  }
-  noSel.style.display = 'none';
-  panel.style.display = '';
-
-  const data = getData();
-  const t = data[selectedTraineeId];
+  const data = getData(), t = data[selectedId];
   if (!t) return;
-
-  document.getElementById('progressTitle').textContent = `${t.name} — Progress`;
-  const entries = (t.progress || []).slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+  const entries = (t.progress||[]).slice().sort((a,b)=>new Date(b.date)-new Date(a.date));
   const el = document.getElementById('progressEntries');
-
-  if (!entries.length) {
-    el.innerHTML = '<div class="empty-state"><p>No progress entries yet.</p></div>';
-    return;
-  }
-
-  el.innerHTML = entries.map((e, idx) => {
-    const realIdx = t.progress.indexOf(e);
-    let extra = '';
-    if (e.image) extra += `<div style="margin-top:.35rem"><img src="${escapeHtml(e.image)}" style="max-width:200px;border-radius:.35rem" alt=""></div>`;
-    if (e.link) extra += `<div style="margin-top:.25rem"><a href="${escapeHtml(e.link)}" target="_blank" style="font-size:.75rem;color:#2563eb">🔗 ${escapeHtml(e.link)}</a></div>`;
+  if (!entries.length) { el.innerHTML='<div class="empty-state"><p>No entries yet.</p></div>'; return; }
+  el.innerHTML = entries.map(e => {
+    const ri = t.progress.indexOf(e);
+    let extra='';
+    if(e.image) extra+=`<div style="margin-top:.3rem"><img src="${esc(e.image)}" style="max-width:180px;border-radius:.3rem" alt=""></div>`;
+    if(e.link)  extra+=`<div style="margin-top:.2rem"><a href="${esc(e.link)}" target="_blank" style="font-size:.72rem;color:#2563eb">🔗 ${esc(e.link)}</a></div>`;
     return `<div class="progress-entry">
       <span class="entry-cat cat-${e.category}">${e.category}</span>
       <div class="entry-body">
-        <h4>${escapeHtml(e.title)}</h4>
-        <div class="entry-meta">${e.date || 'No date'}${e.rating > 0 ? ' · ' + renderStars(e.rating) : ''}</div>
-        ${e.description ? `<p>${escapeHtml(e.description)}</p>` : ''}
-        ${extra}
+        <h4>${esc(e.title)}</h4>
+        <div class="entry-meta">${e.date||''}${e.rating>0?' · '+renderStars(e.rating):''}</div>
+        ${e.description?`<p>${esc(e.description)}</p>`:''}${extra}
       </div>
       <div style="display:flex;gap:.25rem;flex-shrink:0">
-        <button class="btn btn-secondary btn-sm" onclick="editProgress(${realIdx})" title="Edit">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteProgress(${realIdx})" title="Delete">🗑</button>
+        <button class="btn btn-secondary btn-sm" onclick="editProgress(${ri})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProgress(${ri})">🗑</button>
       </div>
     </div>`;
   }).join('');
 }
 
-// Trainee CRUD
+// ── Tasks tab ─────────────────────────────────────────────────────────────
+const STATUS_MAP = {
+  not_started:{ label:'Not Started', cls:'active-ns' },
+  in_progress:{ label:'In Progress', cls:'active-ip' },
+  needs_review:{ label:'Needs Review', cls:'active-nr' },
+  done:{ label:'Complete', cls:'active-done' }
+};
+
+function renderTasks() {
+  const data = getData(), t = data[selectedId];
+  if (!t) return;
+  const tasks = t.tasks || [];
+  const el = document.getElementById('tasksContent');
+  if (!tasks.length) { el.innerHTML='<div class="empty-state"><p>No tasks yet.</p></div>'; return; }
+  el.innerHTML = tasks.map((tk,i) => {
+    const sm = STATUS_MAP[tk.status||'not_started'];
+    const statusBtns = Object.entries(STATUS_MAP).map(([k,v])=>
+      `<button class="status-btn ${tk.status===k?v.cls:''}" onclick="setTaskStatus(${i},'${k}')">${v.label}</button>`
+    ).join('');
+    return `<div class="task-card" id="task-card-${i}">
+      <div class="task-header">
+        <div>
+          <div class="task-title">Week ${tk.week} — ${esc(tk.title)}</div>
+          <div class="task-meta">${esc(tk.desc||'')}</div>
+        </div>
+      </div>
+      <div class="task-status">${statusBtns}</div>
+      <div class="grade-row">
+        <label>Grade (0–100)</label>
+        <input type="number" min="0" max="100" value="${tk.grade||''}" placeholder="—"
+          onchange="setTaskGrade(${i},this.value)">
+      </div>
+      <div class="feedback-row">
+        <textarea placeholder="Supervisor feedback..." onblur="setTaskFeedback(${i},this.value)">${esc(tk.feedback||'')}</textarea>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setTaskStatus(idx, status) {
+  const data = getData();
+  data[selectedId].tasks[idx].status = status;
+  setData(data); renderTasks(); renderTrainees();
+}
+function setTaskGrade(idx, val) {
+  const data = getData();
+  data[selectedId].tasks[idx].grade = val===''?null:parseInt(val);
+  setData(data); renderTrainees();
+}
+function setTaskFeedback(idx, val) {
+  const data = getData();
+  data[selectedId].tasks[idx].feedback = val;
+  setData(data);
+}
+
+// ── Attendance tab ────────────────────────────────────────────────────────
+function markAttendance(status) {
+  const date = document.getElementById('attDate').value;
+  if (!date) return alert('Please select a date.');
+  const data = getData();
+  const att = data[selectedId].attendance || [];
+  const existing = att.findIndex(a=>a.date===date);
+  if (existing>=0) att[existing].status = status;
+  else att.push({ date, status });
+  att.sort((a,b)=>b.date.localeCompare(a.date));
+  data[selectedId].attendance = att;
+  setData(data); renderAttendance(); renderTrainees();
+}
+
+function renderAttendance() {
+  const data = getData(), t = data[selectedId];
+  const att = (t.attendance||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const present = att.filter(a=>a.status==='present').length;
+  const late    = att.filter(a=>a.status==='late').length;
+  const absent  = att.filter(a=>a.status==='absent').length;
+  const total   = att.length;
+  document.getElementById('attSummary').innerHTML = total ? `
+    <span class="att-stat" style="background:#dcfce7;color:#15803d">✓ Present: ${present}</span>
+    <span class="att-stat" style="background:#fef9c3;color:#92400e">⏱ Late: ${late}</span>
+    <span class="att-stat" style="background:#fee2e2;color:#b91c1c">✗ Absent: ${absent}</span>
+    <span class="att-stat" style="background:#f1f5f9;color:#475569">Total: ${total} days</span>
+  ` : '';
+  document.getElementById('attLog').innerHTML = att.length
+    ? att.map(a=>`<div class="att-row">
+        <span class="att-date">${a.date}</span>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span class="att-badge ${a.status}">${a.status.charAt(0).toUpperCase()+a.status.slice(1)}</span>
+          <button class="btn btn-danger btn-sm" onclick="deleteAttendance('${a.date}')">✕</button>
+        </div>
+      </div>`).join('')
+    : '<div class="empty-state"><p>No attendance records yet.</p></div>';
+}
+
+function deleteAttendance(date) {
+  const data = getData();
+  data[selectedId].attendance = (data[selectedId].attendance||[]).filter(a=>a.date!==date);
+  setData(data); renderAttendance();
+}
+
+// ── Trainee CRUD ──────────────────────────────────────────────────────────
 function openTraineeModal(id) {
-  editingTraineeId = id || null;
-  const modal = document.getElementById('traineeModal');
-  document.getElementById('traineeModalTitle').textContent = id ? 'Edit Trainee' : 'Add Trainee';
+  editingTraineeId = id||null;
+  document.getElementById('traineeModalTitle').textContent = id?'Edit Trainee':'Add Trainee';
   if (id) {
     const t = getData()[id];
-    document.getElementById('tName').value = t.name || '';
-    document.getElementById('tRole').value = t.role || '';
-    document.getElementById('tDate').value = t.startDate || '';
-    document.getElementById('tPhoto').value = t.photo || '';
-    document.getElementById('tBio').value = t.bio || '';
+    document.getElementById('tName').value  = t.name||'';
+    document.getElementById('tTrack').value = t.track||'appdev';
+    document.getElementById('tDate').value  = t.startDate||'';
+    document.getElementById('tPhoto').value = t.photo||'';
+    document.getElementById('tBio').value   = t.bio||'';
   } else {
-    document.getElementById('tName').value = '';
-    document.getElementById('tRole').value = '';
-    document.getElementById('tDate').value = '';
-    document.getElementById('tPhoto').value = '';
-    document.getElementById('tBio').value = '';
+    document.getElementById('tName').value='';
+    document.getElementById('tTrack').value='appdev';
+    document.getElementById('tDate').value='';
+    document.getElementById('tPhoto').value='';
+    document.getElementById('tBio').value='';
   }
-  modal.classList.add('open');
+  document.getElementById('traineeModal').classList.add('open');
 }
-function closeTraineeModal() {
-  document.getElementById('traineeModal').classList.remove('open');
-  editingTraineeId = null;
-}
+function closeTraineeModal() { document.getElementById('traineeModal').classList.remove('open'); editingTraineeId=null; }
+
 function saveTrainee() {
   const name = document.getElementById('tName').value.trim();
   if (!name) return alert('Name is required');
+  const track = document.getElementById('tTrack').value;
   const data = getData();
   const id = editingTraineeId || genId();
-  const existing = data[id] || {};
+  const ex = data[id] || {};
+  // seed tasks if new
+  let tasks = ex.tasks;
+  if (!tasks) {
+    tasks = (TRACK_TASKS[track]||[]).map(tk=>({...tk, status:'not_started', grade:null, feedback:'', submittedAt:null}));
+  }
   data[id] = {
-    ...existing,
-    name,
-    role: document.getElementById('tRole').value.trim(),
+    ...ex, name, track,
+    role: TRACK_LABELS[track] || track,
     startDate: document.getElementById('tDate').value,
     photo: document.getElementById('tPhoto').value.trim(),
     bio: document.getElementById('tBio').value.trim(),
-    progress: existing.progress || []
+    progress: ex.progress||[],
+    tasks,
+    attendance: ex.attendance||[]
   };
-  setData(data);
-  closeTraineeModal();
-  renderTrainees();
-  if (selectedTraineeId === id) renderProgress();
+  setData(data); closeTraineeModal(); renderTrainees();
+  if (selectedId===id) selectTrainee(id);
 }
-function editTrainee(id) {
-  openTraineeModal(id);
-}
+function editTrainee(id) { openTraineeModal(id); }
 function deleteTrainee(id) {
-  if (!confirm('Delete this trainee and all their progress?')) return;
-  const data = getData();
-  delete data[id];
-  setData(data);
-  if (selectedTraineeId === id) {
-    selectedTraineeId = null;
-    renderProgress();
-  }
+  if (!confirm('Delete this trainee and all their data?')) return;
+  const data = getData(); delete data[id]; setData(data);
+  if (selectedId===id) { selectedId=null; document.getElementById('progressPanel').style.display='none'; document.getElementById('noSelection').style.display=''; }
   renderTrainees();
 }
 
-// Progress CRUD
+// ── Progress CRUD ─────────────────────────────────────────────────────────
 function openProgressModal(idx) {
-  editingProgressIdx = idx !== undefined ? idx : null;
-  const modal = document.getElementById('progressModal');
-  document.getElementById('progressModalTitle').textContent = idx !== undefined ? 'Edit Entry' : 'Add Progress Entry';
-  if (idx !== undefined) {
-    const data = getData();
-    const e = data[selectedTraineeId].progress[idx];
-    document.getElementById('pTitle').value = e.title || '';
-    document.getElementById('pDate').value = e.date || '';
-    document.getElementById('pCategory').value = e.category || 'project';
-    document.getElementById('pRating').value = e.rating || 0;
-    document.getElementById('pDesc').value = e.description || '';
-    document.getElementById('pImage').value = e.image || '';
-    document.getElementById('pLink').value = e.link || '';
+  editingProgressIdx = idx!==undefined?idx:null;
+  document.getElementById('progressModalTitle').textContent = idx!==undefined?'Edit Entry':'Add Progress Entry';
+  if (idx!==undefined) {
+    const e = getData()[selectedId].progress[idx];
+    document.getElementById('pTitle').value    = e.title||'';
+    document.getElementById('pDate').value     = e.date||'';
+    document.getElementById('pCategory').value = e.category||'project';
+    document.getElementById('pRating').value   = e.rating||0;
+    document.getElementById('pDesc').value     = e.description||'';
+    document.getElementById('pImage').value    = e.image||'';
+    document.getElementById('pLink').value     = e.link||'';
   } else {
-    document.getElementById('pTitle').value = '';
-    document.getElementById('pDate').value = new Date().toISOString().slice(0, 10);
-    document.getElementById('pCategory').value = 'project';
-    document.getElementById('pRating').value = '0';
-    document.getElementById('pDesc').value = '';
-    document.getElementById('pImage').value = '';
-    document.getElementById('pLink').value = '';
+    document.getElementById('pTitle').value='';
+    document.getElementById('pDate').value=new Date().toISOString().slice(0,10);
+    document.getElementById('pCategory').value='project';
+    document.getElementById('pRating').value='0';
+    document.getElementById('pDesc').value='';
+    document.getElementById('pImage').value='';
+    document.getElementById('pLink').value='';
   }
-  modal.classList.add('open');
+  document.getElementById('progressModal').classList.add('open');
 }
-function closeProgressModal() {
-  document.getElementById('progressModal').classList.remove('open');
-  editingProgressIdx = null;
-}
+function closeProgressModal() { document.getElementById('progressModal').classList.remove('open'); editingProgressIdx=null; }
 function saveProgress() {
   const title = document.getElementById('pTitle').value.trim();
   if (!title) return alert('Title is required');
   const entry = {
-    title,
-    date: document.getElementById('pDate').value,
-    category: document.getElementById('pCategory').value,
-    rating: parseInt(document.getElementById('pRating').value),
-    description: document.getElementById('pDesc').value.trim(),
-    image: document.getElementById('pImage').value.trim(),
-    link: document.getElementById('pLink').value.trim()
+    title, date:document.getElementById('pDate').value,
+    category:document.getElementById('pCategory').value,
+    rating:parseInt(document.getElementById('pRating').value),
+    description:document.getElementById('pDesc').value.trim(),
+    image:document.getElementById('pImage').value.trim(),
+    link:document.getElementById('pLink').value.trim()
   };
   const data = getData();
-  if (!data[selectedTraineeId].progress) data[selectedTraineeId].progress = [];
-  if (editingProgressIdx !== null) {
-    data[selectedTraineeId].progress[editingProgressIdx] = entry;
-  } else {
-    data[selectedTraineeId].progress.push(entry);
-  }
-  setData(data);
-  closeProgressModal();
-  renderProgress();
-  renderTrainees();
+  if (!data[selectedId].progress) data[selectedId].progress=[];
+  if (editingProgressIdx!==null) data[selectedId].progress[editingProgressIdx]=entry;
+  else data[selectedId].progress.push(entry);
+  setData(data); closeProgressModal(); renderProgress(); renderTrainees();
 }
-function editProgress(idx) {
-  openProgressModal(idx);
-}
+function editProgress(idx) { openProgressModal(idx); }
 function deleteProgress(idx) {
   if (!confirm('Delete this entry?')) return;
-  const data = getData();
-  data[selectedTraineeId].progress.splice(idx, 1);
-  setData(data);
-  renderProgress();
-  renderTrainees();
+  const data=getData(); data[selectedId].progress.splice(idx,1); setData(data); renderProgress(); renderTrainees();
 }
 
 function viewPortfolio() {
-  if (!selectedTraineeId) return;
-  window.open(`portfolio.html?id=${selectedTraineeId}`, '_blank');
+  if (selectedId) window.open(`portfolio.html?id=${selectedId}`, '_blank');
 }
 
-// Close modals on overlay click
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) overlay.classList.remove('open');
-  });
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); });
 });
 
-// ── Seed HCT students on first load ──────────────────────────────────────
+// ── Seed HCT Students ─────────────────────────────────────────────────────
 function seedStudents() {
-  const existing = getData();
-  if (Object.keys(existing).length > 0) return; // already has data
-
+  if (Object.keys(getData()).length > 0) return;
   const students = [
-    { id:'H00462496', name:'Badir Mohamed Jabir Ahmed Almaazmi',    gender:'M', major:'Security and Forensics',   email:'H00462496@hct.ac.ae', phone:'54-5071371' },
-    { id:'H00446953', name:'Maryam Yaaser Obaid Khaddeim Alsamahi', gender:'F', major:'Security and Forensics',   email:'H00446953@hct.ac.ae', phone:'50-8486555' },
-    { id:'H00441833', name:'Mitha Mohammed Marhoon Hamed Aleissaee',gender:'F', major:'Security and Forensics',   email:'H00441833@hct.ac.ae', phone:'56-2668833' },
-    { id:'H00422093', name:'Omar Salem Eissa Ali',                  gender:'M', major:'Security and Forensics',   email:'H00422093@hct.ac.ae', phone:'52-6757955' },
-    { id:'H00469140', name:'Amal Mohammed Ali Alghelili Alshehhi',  gender:'F', major:'Applications Development', email:'H00469140@hct.ac.ae', phone:'50-8034777' },
-    { id:'H00444932', name:'Eissa Saif Khalfan Mohammed Almarri',   gender:'M', major:'Applications Development', email:'H00444932@hct.ac.ae', phone:'55-5061330' },
-    { id:'H00428939', name:'Sameera Khalid Ahmed Mohamed Alali',    gender:'F', major:'Security and Forensics',   email:'H00428939@hct.ac.ae', phone:'50-4355954' },
-    { id:'H00495227', name:'Hind Abdalla Hassan Abdalla Mohamad',   gender:'F', major:'Applications Development', email:'H00495227@hct.ac.ae', phone:'050-4749674' },
-    { id:'H00461769', name:'Mahra Hassan Ali Salim Alrawi',         gender:'F', major:'Applications Development', email:'H00461769@hct.ac.ae', phone:'50-9623623' },
-    { id:'H00416827', name:'Rashid Ali Shambeh Ramadan Alblooshi',  gender:'M', major:'Applications Development', email:'H00416827@hct.ac.ae', phone:'50-9722778' },
+    { id:'H00462496', name:'Badir Mohamed Jabir Ahmed Almaazmi',    track:'security', email:'H00462496@hct.ac.ae', phone:'54-5071371' },
+    { id:'H00446953', name:'Maryam Yaaser Obaid Khaddeim Alsamahi', track:'security', email:'H00446953@hct.ac.ae', phone:'50-8486555' },
+    { id:'H00441833', name:'Mitha Mohammed Marhoon Hamed Aleissaee',track:'security', email:'H00441833@hct.ac.ae', phone:'56-2668833' },
+    { id:'H00422093', name:'Omar Salem Eissa Ali',                  track:'security', email:'H00422093@hct.ac.ae', phone:'52-6757955' },
+    { id:'H00469140', name:'Amal Mohammed Ali Alghelili Alshehhi',  track:'appdev',   email:'H00469140@hct.ac.ae', phone:'50-8034777' },
+    { id:'H00444932', name:'Eissa Saif Khalfan Mohammed Almarri',   track:'appdev',   email:'H00444932@hct.ac.ae', phone:'55-5061330' },
+    { id:'H00428939', name:'Sameera Khalid Ahmed Mohamed Alali',    track:'security', email:'H00428939@hct.ac.ae', phone:'50-4355954' },
+    { id:'H00495227', name:'Hind Abdalla Hassan Abdalla Mohamad',   track:'appdev',   email:'H00495227@hct.ac.ae', phone:'050-4749674' },
+    { id:'H00461769', name:'Mahra Hassan Ali Salim Alrawi',         track:'appdev',   email:'H00461769@hct.ac.ae', phone:'50-9623623' },
+    { id:'H00416827', name:'Rashid Ali Shambeh Ramadan Alblooshi',  track:'appdev',   email:'H00416827@hct.ac.ae', phone:'50-9722778' },
   ];
-
   const data = {};
   students.forEach(s => {
+    const tasks = (TRACK_TASKS[s.track]||[]).map(tk=>({...tk,status:'not_started',grade:null,feedback:'',submittedAt:null}));
     data[s.id] = {
-      name:      s.name,
-      role:      s.major + ' — HCT',
-      startDate: '2026-06-04',
-      photo:     '',
-      bio:       `Bachelor of ${s.major}, Computer & Information Science, Higher Colleges of Technology.\nEmail: ${s.email} | Phone: ${s.phone}`,
-      progress:  []
+      name: s.name, track: s.track, role: TRACK_LABELS[s.track],
+      startDate: '2026-06-04', photo: '',
+      bio: `Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: ${s.email} | Phone: ${s.phone}`,
+      progress: [], tasks, attendance: []
     };
   });
   setData(data);
