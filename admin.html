@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Maker — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh}
+.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.header h1{font-size:1.25rem;font-weight:700;color:#2563eb}
+.header h1 span{color:#1e293b}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border:none;border-radius:.5rem;font-family:inherit;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .15s}
+.btn-primary{background:#2563eb;color:#fff}
+.btn-primary:hover{background:#1d4ed8}
+.btn-secondary{background:#f1f5f9;color:#475569}
+.btn-secondary:hover{background:#e2e8f0}
+.btn-danger{background:#fef2f2;color:#dc2626}
+.btn-danger:hover{background:#fee2e2}
+.btn-sm{padding:.35rem .75rem;font-size:.8rem}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:.75rem;padding:1.25rem;margin-bottom:1rem}
+.card h2{font-size:1.05rem;font-weight:600;margin-bottom:1rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.form-group{display:flex;flex-direction:column;gap:.3rem}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:.8rem;font-weight:500;color:#64748b}
+.form-group input,.form-group textarea,.form-group select{padding:.5rem .75rem;border:1px solid #e2e8f0;border-radius:.5rem;font-family:inherit;font-size:.875rem;outline:none;transition:border .15s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.form-group textarea{resize:vertical;min-height:60px}
+.trainee-list{display:grid;gap:.5rem;margin-top:1rem}
+.trainee-item{display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;background:#fff;border:1px solid #e2e8f0;border-radius:.5rem;cursor:pointer;transition:all .15s}
+.trainee-item:hover{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.trainee-item.active{border-color:#2563eb;background:#eff6ff}
+.trainee-avatar{width:40px;height:40px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-weight:600;color:#64748b;font-size:.85rem;overflow:hidden;flex-shrink:0}
+.trainee-avatar img{width:100%;height:100%;object-fit:cover}
+.trainee-info{flex:1;min-width:0}
+.trainee-info h3{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trainee-info p{font-size:.75rem;color:#64748b}
+.trainee-actions{display:flex;gap:.35rem;flex-shrink:0}
+.empty-state{text-align:center;padding:2.5rem 1rem;color:#94a3b8}
+.empty-state svg{width:48px;height:48px;margin-bottom:.75rem;opacity:.5}
+.empty-state p{font-size:.9rem}
+.progress-entry{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem;border:1px solid #e2e8f0;border-radius:.5rem;margin-bottom:.5rem}
+.progress-entry .entry-cat{font-size:.65rem;font-weight:600;text-transform:uppercase;padding:.15rem .5rem;border-radius:1rem;flex-shrink:0}
+.cat-project{background:#dbeafe;color:#1d4ed8}
+.cat-skill{background:#dcfce7;color:#16a34a}
+.cat-achievement{background:#fef9c3;color:#a16207}
+.cat-certificate{background:#f3e8ff;color:#7c3aed}
+.progress-entry .entry-body{flex:1;min-width:0}
+.progress-entry .entry-body h4{font-size:.85rem;font-weight:600}
+.progress-entry .entry-body .entry-meta{font-size:.75rem;color:#94a3b8;margin-top:.15rem}
+.progress-entry .entry-body p{font-size:.8rem;color:#475569;margin-top:.25rem}
+.stars{display:inline-flex;gap:2px;color:#f59e0b}
+.stars .star{font-size:.85rem}
+.stars .star.empty{color:#e2e8f0}
+.layout{display:grid;grid-template-columns:340px 1fr;gap:1.5rem;align-items:start}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.section-title h2{font-size:1.05rem;font-weight:600}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:.75rem;padding:1.5rem;width:90%;max-width:500px;max-height:85vh;overflow-y:auto;transform:scale(.95);transition:transform .2s}
+.modal-overlay.open .modal{transform:scale(1)}
+.modal h2{font-size:1.1rem;font-weight:600;margin-bottom:1rem}
+.modal-footer{display:flex;justify-content:flex-end;gap:.5rem;margin-top:1.25rem}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📋 <span>Portfolio Maker</span></h1>
+  <div style="font-size:.8rem;color:#94a3b8">Admin Panel</div>
+</div>
+
+<div class="container">
+  <div class="layout">
+    <!-- Left: Trainee List -->
+    <div>
+      <div class="card">
+        <div class="section-title">
+          <h2>Trainees</h2>
+          <button class="btn btn-primary btn-sm" onclick="openTraineeModal()">+ Add</button>
+        </div>
+        <div id="traineeList"></div>
+      </div>
+    </div>
+
+    <!-- Right: Progress -->
+    <div>
+      <div id="progressPanel" style="display:none">
+        <div class="card">
+          <div class="section-title">
+            <h2 id="progressTitle">Progress</h2>
+            <div style="display:flex;gap:.5rem">
+              <button class="btn btn-sm btn-primary" onclick="openProgressModal()">+ Entry</button>
+              <button class="btn btn-sm btn-secondary" onclick="viewPortfolio()">View Portfolio ↗</button>
+            </div>
+          </div>
+          <div id="progressEntries"></div>
+        </div>
+      </div>
+      <div id="noSelection" class="card">
+        <div class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+          <p>Select a trainee to manage their progress</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Trainee Modal -->
+<div class="modal-overlay" id="traineeModal">
+  <div class="modal">
+    <h2 id="traineeModalTitle">Add Trainee</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Name *</label>
+        <input id="tName" placeholder="Full name">
+      </div>
+      <div class="form-group">
+        <label>Role / Department</label>
+        <input id="tRole" placeholder="e.g. Frontend Developer">
+      </div>
+      <div class="form-group">
+        <label>Start Date</label>
+        <input id="tDate" type="date">
+      </div>
+      <div class="form-group">
+        <label>Photo URL (optional)</label>
+        <input id="tPhoto" placeholder="https://...">
+      </div>
+      <div class="form-group full">
+        <label>Short Bio</label>
+        <textarea id="tBio" placeholder="A brief introduction..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeTraineeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTrainee()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Progress Modal -->
+<div class="modal-overlay" id="progressModal">
+  <div class="modal">
+    <h2 id="progressModalTitle">Add Progress Entry</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Title *</label>
+        <input id="pTitle" placeholder="Entry title">
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input id="pDate" type="date">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="pCategory">
+          <option value="project">Project</option>
+          <option value="skill">Skill</option>
+          <option value="achievement">Achievement</option>
+          <option value="certificate">Certificate</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Rating (1-5)</label>
+        <select id="pRating">
+          <option value="0">No rating</option>
+          <option value="1">⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>Description</label>
+        <textarea id="pDesc" placeholder="Describe the progress..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Image URL (optional)</label>
+        <input id="pImage" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label>Link (optional)</label>
+        <input id="pLink" placeholder="https://...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeProgressModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProgress()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'tabashir_portfolios';
+let selectedTraineeId = null;
+let editingTraineeId = null;
+let editingProgressIdx = null;
+
+function getData() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+}
+function setData(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+function genId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+function initials(name) {
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+}
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+function renderStars(n) {
+  let s = '';
+  for (let i = 1; i <= 5; i++) s += `<span class="star${i > n ? ' empty' : ''}">★</span>`;
+  return `<span class="stars">${s}</span>`;
+}
+
+function renderTrainees() {
+  const data = getData();
+  const ids = Object.keys(data);
+  const el = document.getElementById('traineeList');
+  if (!ids.length) {
+    el.innerHTML = '<div class="empty-state"><p>No trainees yet. Click "+ Add" to get started.</p></div>';
+    return;
+  }
+  el.innerHTML = ids.map(id => {
+    const t = data[id];
+    const avatarContent = t.photo
+      ? `<img src="${escapeHtml(t.photo)}" alt="${escapeHtml(t.name)}">`
+      : initials(t.name);
+    return `<div class="trainee-item${selectedTraineeId === id ? ' active' : ''}" onclick="selectTrainee('${id}')">
+      <div class="trainee-avatar">${avatarContent}</div>
+      <div class="trainee-info">
+        <h3>${escapeHtml(t.name)}</h3>
+        <p>${escapeHtml(t.role || 'No role')} · ${(t.progress || []).length} entries</p>
+      </div>
+      <div class="trainee-actions">
+        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();editTrainee('${id}')" title="Edit">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteTrainee('${id}')" title="Delete">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selectTrainee(id) {
+  selectedTraineeId = id;
+  renderTrainees();
+  renderProgress();
+}
+
+function renderProgress() {
+  const noSel = document.getElementById('noSelection');
+  const panel = document.getElementById('progressPanel');
+  if (!selectedTraineeId) {
+    noSel.style.display = '';
+    panel.style.display = 'none';
+    return;
+  }
+  noSel.style.display = 'none';
+  panel.style.display = '';
+
+  const data = getData();
+  const t = data[selectedTraineeId];
+  if (!t) return;
+
+  document.getElementById('progressTitle').textContent = `${t.name} — Progress`;
+  const entries = (t.progress || []).slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+  const el = document.getElementById('progressEntries');
+
+  if (!entries.length) {
+    el.innerHTML = '<div class="empty-state"><p>No progress entries yet.</p></div>';
+    return;
+  }
+
+  el.innerHTML = entries.map((e, idx) => {
+    const realIdx = t.progress.indexOf(e);
+    let extra = '';
+    if (e.image) extra += `<div style="margin-top:.35rem"><img src="${escapeHtml(e.image)}" style="max-width:200px;border-radius:.35rem" alt=""></div>`;
+    if (e.link) extra += `<div style="margin-top:.25rem"><a href="${escapeHtml(e.link)}" target="_blank" style="font-size:.75rem;color:#2563eb">🔗 ${escapeHtml(e.link)}</a></div>`;
+    return `<div class="progress-entry">
+      <span class="entry-cat cat-${e.category}">${e.category}</span>
+      <div class="entry-body">
+        <h4>${escapeHtml(e.title)}</h4>
+        <div class="entry-meta">${e.date || 'No date'}${e.rating > 0 ? ' · ' + renderStars(e.rating) : ''}</div>
+        ${e.description ? `<p>${escapeHtml(e.description)}</p>` : ''}
+        ${extra}
+      </div>
+      <div style="display:flex;gap:.25rem;flex-shrink:0">
+        <button class="btn btn-secondary btn-sm" onclick="editProgress(${realIdx})" title="Edit">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProgress(${realIdx})" title="Delete">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Trainee CRUD
+function openTraineeModal(id) {
+  editingTraineeId = id || null;
+  const modal = document.getElementById('traineeModal');
+  document.getElementById('traineeModalTitle').textContent = id ? 'Edit Trainee' : 'Add Trainee';
+  if (id) {
+    const t = getData()[id];
+    document.getElementById('tName').value = t.name || '';
+    document.getElementById('tRole').value = t.role || '';
+    document.getElementById('tDate').value = t.startDate || '';
+    document.getElementById('tPhoto').value = t.photo || '';
+    document.getElementById('tBio').value = t.bio || '';
+  } else {
+    document.getElementById('tName').value = '';
+    document.getElementById('tRole').value = '';
+    document.getElementById('tDate').value = '';
+    document.getElementById('tPhoto').value = '';
+    document.getElementById('tBio').value = '';
+  }
+  modal.classList.add('open');
+}
+function closeTraineeModal() {
+  document.getElementById('traineeModal').classList.remove('open');
+  editingTraineeId = null;
+}
+function saveTrainee() {
+  const name = document.getElementById('tName').value.trim();
+  if (!name) return alert('Name is required');
+  const data = getData();
+  const id = editingTraineeId || genId();
+  const existing = data[id] || {};
+  data[id] = {
+    ...existing,
+    name,
+    role: document.getElementById('tRole').value.trim(),
+    startDate: document.getElementById('tDate').value,
+    photo: document.getElementById('tPhoto').value.trim(),
+    bio: document.getElementById('tBio').value.trim(),
+    progress: existing.progress || []
+  };
+  setData(data);
+  closeTraineeModal();
+  renderTrainees();
+  if (selectedTraineeId === id) renderProgress();
+}
+function editTrainee(id) {
+  openTraineeModal(id);
+}
+function deleteTrainee(id) {
+  if (!confirm('Delete this trainee and all their progress?')) return;
+  const data = getData();
+  delete data[id];
+  setData(data);
+  if (selectedTraineeId === id) {
+    selectedTraineeId = null;
+    renderProgress();
+  }
+  renderTrainees();
+}
+
+// Progress CRUD
+function openProgressModal(idx) {
+  editingProgressIdx = idx !== undefined ? idx : null;
+  const modal = document.getElementById('progressModal');
+  document.getElementById('progressModalTitle').textContent = idx !== undefined ? 'Edit Entry' : 'Add Progress Entry';
+  if (idx !== undefined) {
+    const data = getData();
+    const e = data[selectedTraineeId].progress[idx];
+    document.getElementById('pTitle').value = e.title || '';
+    document.getElementById('pDate').value = e.date || '';
+    document.getElementById('pCategory').value = e.category || 'project';
+    document.getElementById('pRating').value = e.rating || 0;
+    document.getElementById('pDesc').value = e.description || '';
+    document.getElementById('pImage').value = e.image || '';
+    document.getElementById('pLink').value = e.link || '';
+  } else {
+    document.getElementById('pTitle').value = '';
+    document.getElementById('pDate').value = new Date().toISOString().slice(0, 10);
+    document.getElementById('pCategory').value = 'project';
+    document.getElementById('pRating').value = '0';
+    document.getElementById('pDesc').value = '';
+    document.getElementById('pImage').value = '';
+    document.getElementById('pLink').value = '';
+  }
+  modal.classList.add('open');
+}
+function closeProgressModal() {
+  document.getElementById('progressModal').classList.remove('open');
+  editingProgressIdx = null;
+}
+function saveProgress() {
+  const title = document.getElementById('pTitle').value.trim();
+  if (!title) return alert('Title is required');
+  const entry = {
+    title,
+    date: document.getElementById('pDate').value,
+    category: document.getElementById('pCategory').value,
+    rating: parseInt(document.getElementById('pRating').value),
+    description: document.getElementById('pDesc').value.trim(),
+    image: document.getElementById('pImage').value.trim(),
+    link: document.getElementById('pLink').value.trim()
+  };
+  const data = getData();
+  if (!data[selectedTraineeId].progress) data[selectedTraineeId].progress = [];
+  if (editingProgressIdx !== null) {
+    data[selectedTraineeId].progress[editingProgressIdx] = entry;
+  } else {
+    data[selectedTraineeId].progress.push(entry);
+  }
+  setData(data);
+  closeProgressModal();
+  renderProgress();
+  renderTrainees();
+}
+function editProgress(idx) {
+  openProgressModal(idx);
+}
+function deleteProgress(idx) {
+  if (!confirm('Delete this entry?')) return;
+  const data = getData();
+  data[selectedTraineeId].progress.splice(idx, 1);
+  setData(data);
+  renderProgress();
+  renderTrainees();
+}
+
+function viewPortfolio() {
+  if (!selectedTraineeId) return;
+  window.open(`portfolio.html?id=${selectedTraineeId}`, '_blank');
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+renderTrainees();
+</script>
+</body>
+</html>
