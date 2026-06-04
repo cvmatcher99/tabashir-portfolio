@@ -128,36 +128,69 @@ function renderList(data) {
     return;
   }
   document.title = 'Tabashir — Trainee Portfolios';
-  const listHtml = trainees.map(([id, t]) => {
+
+  const TRACKS = [
+    { key:'appdev',   label:'Applications Development', color:'#1d4ed8', bg:'#dbeafe', border:'#bfdbfe' },
+    { key:'security', label:'Security & Forensics',     color:'#b91c1c', bg:'#fee2e2', border:'#fecaca' },
+    { key:'',         label:'Unassigned',               color:'#475569', bg:'#f1f5f9', border:'#e2e8f0' },
+  ];
+
+  function traineeCard(id, t) {
     const avatar = t.photo
       ? `<img src="${escapeHtml(t.photo)}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
-      : `<span style="font-size:1.4rem;font-weight:700;color:#2563eb">${initials(t.name)}</span>`;
-    const count = (t.progress || []).length;
+      : `<span style="font-size:1.2rem;font-weight:700;color:#2563eb">${initials(t.name)}</span>`;
+    const count     = (t.progress || []).length;
+    const tasksDone = (t.tasks || []).filter(tk => tk.status === 'done').length;
+    const tasksTotal= (t.tasks || []).length;
+    const att       = (t.attendance || []);
+    const present   = att.filter(a => a.status === 'present' || a.status === 'late').length;
+    const attPct    = att.length ? Math.round(present / att.length * 100) + '%' : '—';
     return `
-      <a href="portfolio.html?id=${encodeURIComponent(id)}" style="text-decoration:none">
-        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:#fff;border:1px solid #e2e8f0;border-radius:.75rem;margin-bottom:.6rem;cursor:pointer;transition:all .15s"
-             onmouseover="this.style.borderColor='#2563eb';this.style.boxShadow='0 0 0 3px rgba(37,99,235,.08)'"
+      <a href="portfolio.html?id=${encodeURIComponent(id)}" style="text-decoration:none;display:block;margin-bottom:.5rem">
+        <div style="display:flex;align-items:center;gap:.9rem;padding:.85rem 1.1rem;background:#fff;border:1px solid #e2e8f0;border-radius:.7rem;transition:all .15s"
+             onmouseover="this.style.borderColor='#2563eb';this.style.boxShadow='0 0 0 3px rgba(37,99,235,.07)'"
              onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow='none'">
-          <div style="width:48px;height:48px;border-radius:50%;background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden">${avatar}</div>
+          <div style="width:42px;height:42px;border-radius:50%;background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden">${avatar}</div>
           <div style="flex:1;min-width:0">
-            <div style="font-weight:600;font-size:.95rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(t.name)}</div>
-            <div style="font-size:.78rem;color:#64748b;margin-top:.1rem">${escapeHtml(t.role || '')} · ${count} entries</div>
+            <div style="font-weight:600;font-size:.9rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(t.name)}</div>
+            <div style="font-size:.73rem;color:#64748b;margin-top:.15rem;display:flex;gap:.6rem;flex-wrap:wrap">
+              <span>${count} entries</span>
+              ${tasksTotal ? `<span>Tasks: ${tasksDone}/${tasksTotal}</span>` : ''}
+              <span>Attendance: ${attPct}</span>
+            </div>
           </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </a>`;
-  }).join('');
+  }
+
+  let sectionsHtml = '';
+  TRACKS.forEach(track => {
+    const group = trainees.filter(([,t]) =>
+      track.key === '' ? !t.track || !['appdev','security'].includes(t.track) : t.track === track.key
+    );
+    if (!group.length) return;
+    sectionsHtml += `
+      <div style="margin-bottom:1.75rem">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem">
+          <div style="width:4px;height:20px;background:${track.color};border-radius:2px"></div>
+          <h2 style="font-size:1rem;font-weight:700;color:#1e293b">${track.label}</h2>
+          <span style="background:${track.bg};color:${track.color};border:1px solid ${track.border};padding:.15rem .65rem;border-radius:1rem;font-size:.72rem;font-weight:600">${group.length}</span>
+        </div>
+        ${group.map(([id, t]) => traineeCard(id, t)).join('')}
+      </div>`;
+  });
 
   document.getElementById('app').innerHTML = `
-    <div style="max-width:680px;margin:0 auto;padding:2.5rem 1.25rem">
+    <div style="max-width:680px;margin:0 auto;padding:2rem 1.1rem">
       <div style="text-align:center;margin-bottom:2rem">
-        <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div style="width:46px;height:46px;border-radius:11px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:flex;align-items:center;justify-content:center;margin:0 auto .7rem">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h1 style="font-size:1.5rem;font-weight:700;color:#1e293b">Trainee Portfolios</h1>
-        <p style="font-size:.875rem;color:#64748b;margin-top:.3rem">${trainees.length} trainee${trainees.length !== 1 ? 's' : ''}</p>
+        <h1 style="font-size:1.4rem;font-weight:700;color:#1e293b">Trainee Portfolios</h1>
+        <p style="font-size:.82rem;color:#64748b;margin-top:.25rem">${trainees.length} trainee${trainees.length !== 1 ? 's' : ''}</p>
       </div>
-      ${listHtml}
+      ${sectionsHtml}
     </div>`;
 }
 
