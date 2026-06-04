@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:#fff;color:#1e293b;line-height:1.6}
@@ -117,6 +118,14 @@ function initials(name) {
   return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 }
 
+function logoHtml(size) {
+  const s = size || 1;
+  return `<div style="display:inline-block;text-align:center;line-height:1">
+    <div style="font-family:'Inter',sans-serif;font-size:${1.6*s}rem;font-weight:800;letter-spacing:.05em;color:#0f172a">TABASHIR</div>
+    <div style="font-family:'Playfair Display','Georgia',serif;font-size:${0.72*s}rem;font-style:italic;color:#475569;letter-spacing:.04em;margin-top:.05rem">Artificial Intelligence</div>
+  </div>`;
+}
+
 function renderList(data) {
   const trainees = Object.entries(data);
   if (!trainees.length) {
@@ -210,11 +219,10 @@ function renderList(data) {
   document.getElementById('app').innerHTML = `
     <div style="max-width:680px;margin:0 auto;padding:2rem 1.1rem">
       <div style="text-align:center;margin-bottom:2rem">
-        <div style="width:46px;height:46px;border-radius:11px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:flex;align-items:center;justify-content:center;margin:0 auto .7rem">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h1 style="font-size:1.4rem;font-weight:700;color:#1e293b">Trainee Portfolios</h1>
-        <p style="font-size:.82rem;color:#64748b;margin-top:.25rem">${trainees.length} trainee${trainees.length !== 1 ? 's' : ''}</p>
+        ${logoHtml()}
+        <div style="width:40px;height:2px;background:#e2e8f0;margin:.9rem auto .75rem"></div>
+        <p style="font-size:.8rem;color:#64748b;font-weight:500;letter-spacing:.02em">Summer Training Program 2026</p>
+        <p style="font-size:.75rem;color:#94a3b8;margin-top:.2rem">${trainees.length} Trainee${trainees.length !== 1 ? 's' : ''}</p>
       </div>
       ${sectionsHtml}
     </div>`;
@@ -383,6 +391,12 @@ function render() {
 
   document.getElementById('app').innerHTML = `
     <div class="hero">
+      <!-- Tabashir branding strip -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:1.5rem;padding:.55rem 1rem;background:rgba(255,255,255,.6);border-radius:2rem;display:inline-flex">
+        ${logoHtml(0.75)}
+        <div style="width:1px;height:24px;background:#e2e8f0;margin:0 .1rem"></div>
+        <div style="font-size:.72rem;color:#64748b;font-weight:500;line-height:1.3">Summer Training<br>Program 2026</div>
+      </div>
       <div class="hero-avatar">${avatarContent}</div>
       <h1>${escapeHtml(trainee.name)}</h1>
       <div style="margin:.4rem 0"><span style="background:${trackBg};color:${trackColor};padding:.25rem .9rem;border-radius:1rem;font-size:.82rem;font-weight:600">${escapeHtml(trackLabel)}</span></div>
@@ -409,6 +423,13 @@ function render() {
         <div class="timeline">
           ${timelineHtml || '<p style="color:#94a3b8;padding:1rem 0">No progress entries yet.</p>'}
         </div>
+      </div>
+
+      <!-- Footer -->
+      <div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center">
+        <div style="margin-bottom:.5rem">${logoHtml()}</div>
+        <p style="font-size:.75rem;color:#94a3b8">This portfolio was generated as part of the Summer Training Program 2026.<br>
+        Trained and supervised by Tabashir Artificial Intelligence.</p>
       </div>
     </div>`;
 
