@@ -446,6 +446,39 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
   });
 });
 
+// ── Seed HCT students on first load ──────────────────────────────────────
+function seedStudents() {
+  const existing = getData();
+  if (Object.keys(existing).length > 0) return; // already has data
+
+  const students = [
+    { id:'H00462496', name:'Badir Mohamed Jabir Ahmed Almaazmi',    gender:'M', major:'Security and Forensics',   email:'H00462496@hct.ac.ae', phone:'54-5071371' },
+    { id:'H00446953', name:'Maryam Yaaser Obaid Khaddeim Alsamahi', gender:'F', major:'Security and Forensics',   email:'H00446953@hct.ac.ae', phone:'50-8486555' },
+    { id:'H00441833', name:'Mitha Mohammed Marhoon Hamed Aleissaee',gender:'F', major:'Security and Forensics',   email:'H00441833@hct.ac.ae', phone:'56-2668833' },
+    { id:'H00422093', name:'Omar Salem Eissa Ali',                  gender:'M', major:'Security and Forensics',   email:'H00422093@hct.ac.ae', phone:'52-6757955' },
+    { id:'H00469140', name:'Amal Mohammed Ali Alghelili Alshehhi',  gender:'F', major:'Applications Development', email:'H00469140@hct.ac.ae', phone:'50-8034777' },
+    { id:'H00444932', name:'Eissa Saif Khalfan Mohammed Almarri',   gender:'M', major:'Applications Development', email:'H00444932@hct.ac.ae', phone:'55-5061330' },
+    { id:'H00428939', name:'Sameera Khalid Ahmed Mohamed Alali',    gender:'F', major:'Security and Forensics',   email:'H00428939@hct.ac.ae', phone:'50-4355954' },
+    { id:'H00495227', name:'Hind Abdalla Hassan Abdalla Mohamad',   gender:'F', major:'Applications Development', email:'H00495227@hct.ac.ae', phone:'050-4749674' },
+    { id:'H00461769', name:'Mahra Hassan Ali Salim Alrawi',         gender:'F', major:'Applications Development', email:'H00461769@hct.ac.ae', phone:'50-9623623' },
+    { id:'H00416827', name:'Rashid Ali Shambeh Ramadan Alblooshi',  gender:'M', major:'Applications Development', email:'H00416827@hct.ac.ae', phone:'50-9722778' },
+  ];
+
+  const data = {};
+  students.forEach(s => {
+    data[s.id] = {
+      name:      s.name,
+      role:      s.major + ' — HCT',
+      startDate: '2026-06-04',
+      photo:     '',
+      bio:       `Bachelor of ${s.major}, Computer & Information Science, Higher Colleges of Technology.\nEmail: ${s.email} | Phone: ${s.phone}`,
+      progress:  []
+    };
+  });
+  setData(data);
+}
+
+seedStudents();
 renderTrainees();
 </script>
 </body>
