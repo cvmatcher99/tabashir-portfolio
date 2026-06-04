@@ -187,6 +187,11 @@ function render() {
   const categories = [...new Set(progress.map(e => e.category))];
   const daysAtCompany = trainee.startDate ? daysBetween(new Date(trainee.startDate), new Date()) : null;
 
+  const TRACK_LABELS = { appdev:'Applications Development', security:'Security & Forensics' };
+  const trackLabel = TRACK_LABELS[trainee.track] || trainee.role || '';
+  const trackColor = trainee.track === 'security' ? '#b91c1c' : '#1d4ed8';
+  const trackBg    = trainee.track === 'security' ? '#fee2e2' : '#dbeafe';
+
   const avatarContent = trainee.photo
     ? `<img src="${escapeHtml(trainee.photo)}" alt="${escapeHtml(trainee.name)}">`
     : initials(trainee.name);
@@ -247,11 +252,81 @@ function render() {
       </div>`;
   }
 
+  // Tasks section
+  const tasks = trainee.tasks || [];
+  const STATUS_STYLE = {
+    not_started:{ label:'Not Started', bg:'#f1f5f9', color:'#475569' },
+    in_progress:{ label:'In Progress', bg:'#fef9c3', color:'#92400e' },
+    needs_review:{ label:'Needs Review', bg:'#fee2e2', color:'#b91c1c' },
+    done:{ label:'Complete', bg:'#dcfce7', color:'#15803d' }
+  };
+  let tasksHtml = '';
+  if (tasks.length) {
+    const tasksDone = tasks.filter(t=>t.status==='done').length;
+    tasksHtml = `
+      <div class="summary-section">
+        <h2>Tasks — Week Progress</h2>
+        <div style="margin-bottom:1rem">
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;color:#64748b;margin-bottom:.35rem">
+            <span>${tasksDone} of ${tasks.length} complete</span>
+            <span>${Math.round(tasksDone/tasks.length*100)}%</span>
+          </div>
+          <div style="height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden">
+            <div style="height:100%;width:${Math.round(tasksDone/tasks.length*100)}%;background:#2563eb;border-radius:4px;transition:width .5s"></div>
+          </div>
+        </div>
+        ${tasks.map(tk=>{
+          const st = STATUS_STYLE[tk.status||'not_started'];
+          return `<div style="border:1px solid #e2e8f0;border-radius:.65rem;padding:.9rem 1.1rem;margin-bottom:.6rem">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;flex-wrap:wrap">
+              <div>
+                <div style="font-size:.95rem;font-weight:600">Week ${tk.week} — ${escapeHtml(tk.title)}</div>
+                <div style="font-size:.78rem;color:#64748b;margin-top:.2rem">${escapeHtml(tk.desc||'')}</div>
+              </div>
+              <span style="background:${st.bg};color:${st.color};padding:.2rem .75rem;border-radius:1rem;font-size:.72rem;font-weight:600;white-space:nowrap">${st.label}</span>
+            </div>
+            ${tk.grade!==null&&tk.grade!==''?`<div style="margin-top:.5rem;font-size:.82rem"><strong>Grade:</strong> ${tk.grade}/100</div>`:''}
+            ${tk.feedback?`<div style="margin-top:.4rem;font-size:.82rem;color:#475569;background:#f8fafc;padding:.5rem .75rem;border-radius:.4rem">${escapeHtml(tk.feedback)}</div>`:''}
+          </div>`;
+        }).join('')}
+      </div>`;
+  }
+
+  // Attendance section
+  const att = (trainee.attendance || []).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const present = att.filter(a=>a.status==='present').length;
+  const late    = att.filter(a=>a.status==='late').length;
+  const absent  = att.filter(a=>a.status==='absent').length;
+  let attHtml = '';
+  if (att.length) {
+    const pct = Math.round((present+late)/att.length*100);
+    attHtml = `
+      <div class="summary-section">
+        <h2>Attendance</h2>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem">
+          <span style="background:#dcfce7;color:#15803d;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">✓ Present: ${present}</span>
+          <span style="background:#fef9c3;color:#92400e;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">⏱ Late: ${late}</span>
+          <span style="background:#fee2e2;color:#b91c1c;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">✗ Absent: ${absent}</span>
+          <span style="background:#eff6ff;color:#1d4ed8;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">Attendance Rate: ${pct}%</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.4rem">
+          ${att.slice(0,30).map(a=>{
+            const bg = a.status==='present'?'#dcfce7':a.status==='late'?'#fef9c3':'#fee2e2';
+            const cl = a.status==='present'?'#15803d':a.status==='late'?'#92400e':'#b91c1c';
+            return `<div style="background:${bg};border-radius:.5rem;padding:.4rem .6rem;text-align:center">
+              <div style="font-size:.72rem;font-weight:600;color:${cl}">${a.status.toUpperCase()}</div>
+              <div style="font-size:.75rem;color:#475569">${a.date}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  }
+
   document.getElementById('app').innerHTML = `
     <div class="hero">
       <div class="hero-avatar">${avatarContent}</div>
       <h1>${escapeHtml(trainee.name)}</h1>
-      <div class="role">${escapeHtml(trainee.role || '')}</div>
+      <div style="margin:.4rem 0"><span style="background:${trackBg};color:${trackColor};padding:.25rem .9rem;border-radius:1rem;font-size:.82rem;font-weight:600">${escapeHtml(trackLabel)}</span></div>
       <div class="meta">
         ${trainee.startDate ? `Started ${trainee.startDate}` : ''}
         ${daysAtCompany !== null ? ` · ${daysAtCompany} days` : ''}
@@ -260,18 +335,15 @@ function render() {
     </div>
 
     <div class="stats">
-      <div class="stat">
-        <div class="num">${progress.length}</div>
-        <div class="label">Entries</div>
-      </div>
+      <div class="stat"><div class="num">${progress.length}</div><div class="label">Entries</div></div>
       ${daysAtCompany !== null ? `<div class="stat"><div class="num">${daysAtCompany}</div><div class="label">Days</div></div>` : ''}
-      <div class="stat">
-        <div class="num">${categories.length}</div>
-        <div class="label">Categories</div>
-      </div>
+      <div class="stat"><div class="num">${tasks.filter(t=>t.status==='done').length}/${tasks.length}</div><div class="label">Tasks</div></div>
+      ${att.length ? `<div class="stat"><div class="num">${Math.round((present+late)/att.length*100)}%</div><div class="label">Attendance</div></div>` : ''}
     </div>
 
     <div class="content">
+      ${tasksHtml}
+      ${attHtml}
       ${summaryHtml}
       <div class="timeline-section">
         <h2>Progress Timeline</h2>
