@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#fff;color:#1e293b;line-height:1.6}
+.accent{color:#2563eb}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 50%,#bfdbfe 100%);padding:4rem 1.5rem 3rem;text-align:center}
+.hero-avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 1.25rem;background:#fff;border:4px solid #fff;box-shadow:0 4px 24px rgba(37,99,235,.15);display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:700;color:#2563eb;overflow:hidden}
+.hero-avatar img{width:100%;height:100%;object-fit:cover}
+.hero h1{font-size:2rem;font-weight:800;margin-bottom:.25rem}
+.hero .role{font-size:1.05rem;color:#2563eb;font-weight:500;margin-bottom:.5rem}
+.hero .meta{font-size:.85rem;color:#64748b;margin-bottom:1rem}
+.hero .bio{max-width:600px;margin:0 auto;font-size:.95rem;color:#475569}
+
+/* Stats */
+.stats{display:flex;justify-content:center;gap:2rem;padding:1.5rem;flex-wrap:wrap;border-bottom:1px solid #e2e8f0}
+.stat{text-align:center}
+.stat .num{font-size:1.75rem;font-weight:700;color:#2563eb}
+.stat .label{font-size:.75rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+
+/* Content */
+.content{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+
+/* Summary Cards */
+.summary-section{margin-bottom:2.5rem}
+.summary-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid #2563eb;display:inline-block}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;margin-top:.75rem}
+.summary-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:.75rem;padding:1rem;transition:transform .2s,box-shadow .2s}
+.summary-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.summary-card .card-cat{font-size:.65rem;font-weight:600;text-transform:uppercase;padding:.15rem .5rem;border-radius:1rem;display:inline-block;margin-bottom:.4rem}
+.cat-project{background:#dbeafe;color:#1d4ed8}
+.cat-skill{background:#dcfce7;color:#16a34a}
+.cat-achievement{background:#fef9c3;color:#a16207}
+.cat-certificate{background:#f3e8ff;color:#7c3aed}
+.summary-card h3{font-size:.9rem;font-weight:600;margin-bottom:.15rem}
+.summary-card .card-date{font-size:.75rem;color:#94a3b8}
+.stars{display:inline-flex;gap:1px;color:#f59e0b;font-size:.8rem}
+.stars .empty{color:#e2e8f0}
+
+/* Timeline */
+.timeline-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;padding-bottom:.5rem;border-bottom:2px solid #2563eb;display:inline-block}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:#e2e8f0}
+.timeline-group{margin-bottom:2rem}
+.timeline-group h3{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#2563eb;margin-bottom:1rem;padding-left:.25rem}
+.timeline-item{position:relative;margin-bottom:1.25rem;opacity:0;transform:translateY(20px);transition:all .5s ease}
+.timeline-item.visible{opacity:1;transform:translateY(0)}
+.timeline-item::before{content:'';position:absolute;left:-1.65rem;top:.5rem;width:12px;height:12px;border-radius:50%;background:#2563eb;border:2px solid #fff;box-shadow:0 0 0 2px #2563eb}
+.timeline-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:.75rem;padding:1rem 1.25rem;transition:box-shadow .2s}
+.timeline-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.timeline-card .tc-header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.35rem}
+.timeline-card h4{font-size:.95rem;font-weight:600}
+.timeline-card .tc-date{font-size:.75rem;color:#94a3b8}
+.timeline-card .tc-cat{font-size:.6rem;font-weight:600;text-transform:uppercase;padding:.12rem .45rem;border-radius:1rem}
+.timeline-card p{font-size:.85rem;color:#475569;margin-top:.25rem}
+.timeline-card .tc-image{margin-top:.5rem;border-radius:.5rem;max-width:100%;max-height:300px;object-fit:cover}
+.timeline-card .tc-link{display:inline-flex;align-items:center;gap:.25rem;margin-top:.5rem;font-size:.8rem;color:#2563eb;text-decoration:none}
+.timeline-card .tc-link:hover{text-decoration:underline}
+
+/* Print */
+.print-bar{position:fixed;bottom:1.5rem;right:1.5rem;z-index:50}
+.print-btn{display:flex;align-items:center;gap:.4rem;padding:.65rem 1.25rem;background:#2563eb;color:#fff;border:none;border-radius:2rem;font-family:inherit;font-size:.85rem;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.3);transition:all .15s}
+.print-btn:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.35)}
+
+/* Not Found */
+.not-found{text-align:center;padding:6rem 1.5rem;color:#94a3b8}
+.not-found h1{font-size:1.5rem;color:#1e293b;margin-bottom:.5rem}
+
+@media print{
+  .print-bar{display:none}
+  .hero{padding:2rem 1rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .timeline-item{opacity:1!important;transform:none!important}
+}
+@media(max-width:600px){
+  .hero h1{font-size:1.5rem}
+  .hero-avatar{width:90px;height:90px;font-size:2rem}
+  .stats{gap:1.25rem}
+  .stat .num{font-size:1.35rem}
+  .summary-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div class="print-bar" id="printBar" style="display:none">
+  <button class="print-btn" onclick="window.print()">🖨️ Print / PDF</button>
+</div>
+
+<script>
+const STORAGE_KEY = 'tabashir_portfolios';
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+function renderStars(n) {
+  let s = '';
+  for (let i = 1; i <= 5; i++) s += `<span class="${i > n ? 'empty' : ''}">★</span>`;
+  return `<span class="stars">${s}</span>`;
+}
+
+function daysBetween(d1, d2) {
+  return Math.floor((d2 - d1) / 86400000);
+}
+
+function initials(name) {
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+}
+
+function render() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  const trainee = data[id];
+
+  if (!trainee) {
+    document.getElementById('app').innerHTML = `
+      <div class="not-found">
+        <h1>Portfolio Not Found</h1>
+        <p>The requested trainee portfolio could not be loaded.<br>Make sure you opened this link from the Admin Panel.</p>
+      </div>`;
+    return;
+  }
+
+  document.title = `${trainee.name} — Portfolio`;
+  document.getElementById('printBar').style.display = '';
+
+  const progress = (trainee.progress || []).slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+  const categories = [...new Set(progress.map(e => e.category))];
+  const daysAtCompany = trainee.startDate ? daysBetween(new Date(trainee.startDate), new Date()) : null;
+
+  const avatarContent = trainee.photo
+    ? `<img src="${escapeHtml(trainee.photo)}" alt="${escapeHtml(trainee.name)}">`
+    : initials(trainee.name);
+
+  // Summary cards: achievements + certificates first
+  const summaryCategories = ['achievement', 'certificate', 'skill'];
+  const summaryEntries = progress.filter(e => summaryCategories.includes(e.category));
+
+  // Group timeline by category
+  const grouped = {};
+  for (const e of progress) {
+    if (!grouped[e.category]) grouped[e.category] = [];
+    grouped[e.category].push(e);
+  }
+
+  const categoryLabels = { project: 'Projects', skill: 'Skills', achievement: 'Achievements', certificate: 'Certificates' };
+  const categoryOrder = ['achievement', 'certificate', 'project', 'skill'];
+
+  let summaryHtml = '';
+  if (summaryEntries.length) {
+    summaryHtml = `
+      <div class="summary-section">
+        <h2>Highlights</h2>
+        <div class="summary-cards">
+          ${summaryEntries.map(e => `
+            <div class="summary-card">
+              <span class="card-cat cat-${e.category}">${e.category}</span>
+              <h3>${escapeHtml(e.title)}</h3>
+              ${e.rating > 0 ? renderStars(e.rating) : ''}
+              <div class="card-date">${e.date || ''}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  let timelineHtml = '';
+  for (const cat of categoryOrder) {
+    if (!grouped[cat]) continue;
+    timelineHtml += `
+      <div class="timeline-group">
+        <h3>${categoryLabels[cat] || cat}</h3>
+        ${grouped[cat].map(e => `
+          <div class="timeline-item">
+            <div class="timeline-card">
+              <div class="tc-header">
+                <h4>${escapeHtml(e.title)}</h4>
+                <div style="display:flex;align-items:center;gap:.5rem">
+                  <span class="tc-cat cat-${e.category}">${e.category}</span>
+                  <span class="tc-date">${e.date || ''}</span>
+                </div>
+              </div>
+              ${e.rating > 0 ? renderStars(e.rating) : ''}
+              ${e.description ? `<p>${escapeHtml(e.description)}</p>` : ''}
+              ${e.image ? `<img class="tc-image" src="${escapeHtml(e.image)}" alt="">` : ''}
+              ${e.link ? `<a class="tc-link" href="${escapeHtml(e.link)}" target="_blank">🔗 View Link</a>` : ''}
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  document.getElementById('app').innerHTML = `
+    <div class="hero">
+      <div class="hero-avatar">${avatarContent}</div>
+      <h1>${escapeHtml(trainee.name)}</h1>
+      <div class="role">${escapeHtml(trainee.role || '')}</div>
+      <div class="meta">
+        ${trainee.startDate ? `Started ${trainee.startDate}` : ''}
+        ${daysAtCompany !== null ? ` · ${daysAtCompany} days` : ''}
+      </div>
+      ${trainee.bio ? `<div class="bio">${escapeHtml(trainee.bio)}</div>` : ''}
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num">${progress.length}</div>
+        <div class="label">Entries</div>
+      </div>
+      ${daysAtCompany !== null ? `<div class="stat"><div class="num">${daysAtCompany}</div><div class="label">Days</div></div>` : ''}
+      <div class="stat">
+        <div class="num">${categories.length}</div>
+        <div class="label">Categories</div>
+      </div>
+    </div>
+
+    <div class="content">
+      ${summaryHtml}
+      <div class="timeline-section">
+        <h2>Progress Timeline</h2>
+        <div class="timeline">
+          ${timelineHtml || '<p style="color:#94a3b8;padding:1rem 0">No progress entries yet.</p>'}
+        </div>
+      </div>
+    </div>`;
+
+  requestAnimationFrame(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+  });
+}
+
+render();
+</script>
+</body>
+</html>
