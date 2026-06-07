@@ -96,9 +96,22 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#1e293b;line-height:1.
 </div>
 
 <script>
-const GITHUB_RAW = 'https://raw.githubusercontent.com/cvmatcher99/tabashir-portfolio/main/data.json';
+const GITHUB_API_URL = 'https://api.github.com/repos/cvmatcher99/tabashir-portfolio/contents/data.json';
+const GITHUB_RAW    = 'https://raw.githubusercontent.com/cvmatcher99/tabashir-portfolio/main/data.json';
 
 async function fetchData() {
+  // Try GitHub API first (real-time, no CDN cache)
+  try {
+    const res = await fetch(GITHUB_API_URL + '?t=' + Date.now(), {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (res.ok) {
+      const info = await res.json();
+      const b64 = info.content.split(String.fromCharCode(10)).join('').split(String.fromCharCode(13)).join('');
+      return JSON.parse(atob(b64));
+    }
+  } catch(e) {}
+  // Fallback to raw CDN
   try {
     const res = await fetch(GITHUB_RAW + '?t=' + Date.now());
     if (res.ok) return await res.json();

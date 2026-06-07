@@ -711,12 +711,35 @@ function seedStudents() {
 (async function init() {
   const el = document.getElementById('traineeList');
   if (el) el.innerHTML = '<div class="empty-state"><p>Loading...</p></div>';
-  await loadFromGitHub();
-  if (!Object.keys(PORTFOLIO_DATA).length) {
-    seedStudents();
-    if (!getToken()) showSaveStatus('Click Token to save changes', 'error');
+  try {
+    await loadFromGitHub();
+  } catch(e) {
+    console.error('loadFromGitHub error:', e);
   }
-  renderTrainees();
+  if (!Object.keys(PORTFOLIO_DATA).length) {
+    if (!getToken()) showSaveStatus('Click Token to save changes', 'error');
+    const students = [
+      { id:'H00462496', name:'Badir Mohamed Jabir Ahmed Almaazmi',    track:'security', email:'H00462496@hct.ac.ae', phone:'54-5071371' },
+      { id:'H00446953', name:'Maryam Yaaser Obaid Khaddeim Alsamahi', track:'security', email:'H00446953@hct.ac.ae', phone:'50-8486555' },
+      { id:'H00441833', name:'Mitha Mohammed Marhoon Hamed Aleissaee',track:'security', email:'H00441833@hct.ac.ae', phone:'56-2668833' },
+      { id:'H00422093', name:'Omar Salem Eissa Ali',                  track:'security', email:'H00422093@hct.ac.ae', phone:'52-6757955' },
+      { id:'H00469140', name:'Amal Mohammed Ali Alghelili Alshehhi',  track:'appdev',   email:'H00469140@hct.ac.ae', phone:'50-8034777' },
+      { id:'H00444932', name:'Eissa Saif Khalfan Mohammed Almarri',   track:'appdev',   email:'H00444932@hct.ac.ae', phone:'55-5061330' },
+      { id:'H00428939', name:'Sameera Khalid Ahmed Mohamed Alali',    track:'security', email:'H00428939@hct.ac.ae', phone:'50-4355954' },
+      { id:'H00495227', name:'Hind Abdalla Hassan Abdalla Mohamad',   track:'appdev',   email:'H00495227@hct.ac.ae', phone:'050-4749674' },
+      { id:'H00461769', name:'Mahra Hassan Ali Salim Alrawi',         track:'appdev',   email:'H00461769@hct.ac.ae', phone:'50-9623623' },
+      { id:'H00416827', name:'Rashid Ali Shambeh Ramadan Alblooshi',  track:'appdev',   email:'H00416827@hct.ac.ae', phone:'50-9722778' },
+    ];
+    const data = {};
+    students.forEach(function(s) {
+      const tasks = (TRACK_TASKS[s.track]||[]).map(function(tk){ return Object.assign({},tk,{status:'not_started',grade:null,feedback:'',submittedAt:null}); });
+      data[s.id] = { name:s.name, track:s.track, role:TRACK_LABELS[s.track], startDate:'2026-06-04', photo:'',
+        bio:'Bachelor student, Computer & Information Science, Higher Colleges of Technology. Email: '+s.email+' | Phone: '+s.phone,
+        progress:[], tasks:tasks, attendance:[] };
+    });
+    PORTFOLIO_DATA = data;
+  }
+  try { renderTrainees(); } catch(e) { console.error('renderTrainees error:', e); }
 })();
 </script>
 </body>
