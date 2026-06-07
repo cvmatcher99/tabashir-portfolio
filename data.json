@@ -90,7 +90,12 @@
         "submittedAt": null
       }
     ],
-    "attendance": []
+    "attendance": [
+      {
+        "date": "2026-06-07",
+        "status": "present"
+      }
+    ]
   },
   "H00428939": {
     "name": "Sameera Khalid Ahmed Mohamed Alali",
