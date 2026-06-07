@@ -198,7 +198,12 @@
         "submittedAt": null
       }
     ],
-    "attendance": []
+    "attendance": [
+      {
+        "date": "2026-06-07",
+        "status": "present"
+      }
+    ]
   },
   "H00461769": {
     "name": "Mahra Hassan Ali Salim Alrawi",
