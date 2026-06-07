@@ -92,7 +92,7 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#1e293b;line-height:1.
 
 <div id="app"></div>
 <div class="print-bar" id="printBar" style="display:none">
-  <button class="print-btn" onclick="window.print()">ðŸ–¨ï¸ Print / PDF</button>
+  <button class="print-btn" onclick="window.print()">🖨️ Print / PDF</button>
 </div>
 
 <script>
@@ -114,7 +114,7 @@ function escapeHtml(str) {
 
 function renderStars(n) {
   let s = '';
-  for (let i = 1; i <= 5; i++) s += `<span class="${i > n ? 'empty' : ''}">â˜…</span>`;
+  for (let i = 1; i <= 5; i++) s += `<span class="${i > n ? 'empty' : ''}">★</span>`;
   return `<span class="stars">${s}</span>`;
 }
 
@@ -144,7 +144,7 @@ function renderList(data) {
       </div>`;
     return;
   }
-  document.title = 'Tabashir â€” Trainee Portfolios';
+  document.title = 'Tabashir — Trainee Portfolios';
 
   const TRACKS = [
     { key:'appdev',   label:'Applications Development', color:'#1d4ed8', bg:'#dbeafe', border:'#bfdbfe' },
@@ -160,7 +160,7 @@ function renderList(data) {
     const tasksTotal = (t.tasks || []).length;
     const att        = (t.attendance || []);
     const present    = att.filter(a => a.status === 'present' || a.status === 'late').length;
-    const attPct     = att.length ? Math.round(present / att.length * 100) + '%' : 'â€”';
+    const attPct     = att.length ? Math.round(present / att.length * 100) + '%' : '—';
     const trackColor = t.track === 'security' ? '#b91c1c' : '#1d4ed8';
     const trackBg    = t.track === 'security' ? '#fee2e2' : '#dbeafe';
 
@@ -250,12 +250,12 @@ async function render() {
       <div class="not-found">
         <h1>Portfolio Not Found</h1>
         <p>The requested trainee portfolio could not be loaded.<br>
-        <a href="portfolio.html" style="color:#2563eb">â† Back to list</a></p>
+        <a href="portfolio.html" style="color:#2563eb">← Back to list</a></p>
       </div>`;
     return;
   }
 
-  document.title = `${trainee.name} â€” Portfolio`;
+  document.title = `${trainee.name} — Portfolio`;
   document.getElementById('printBar').style.display = '';
 
   const progress = (trainee.progress || []).slice().sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -321,7 +321,7 @@ async function render() {
               ${e.rating > 0 ? renderStars(e.rating) : ''}
               ${e.description ? `<p>${escapeHtml(e.description)}</p>` : ''}
               ${e.image ? `<img class="tc-image" src="${escapeHtml(e.image)}" alt="">` : ''}
-              ${e.link ? `<a class="tc-link" href="${escapeHtml(e.link)}" target="_blank">ðŸ”— View Link</a>` : ''}
+              ${e.link ? `<a class="tc-link" href="${escapeHtml(e.link)}" target="_blank">🔗 View Link</a>` : ''}
             </div>
           </div>`).join('')}
       </div>`;
@@ -340,7 +340,7 @@ async function render() {
     const tasksDone = tasks.filter(t=>t.status==='done').length;
     tasksHtml = `
       <div class="summary-section">
-        <h2>Tasks â€” Week Progress</h2>
+        <h2>Tasks — Week Progress</h2>
         <div style="margin-bottom:1rem">
           <div style="display:flex;justify-content:space-between;font-size:.82rem;color:#64748b;margin-bottom:.35rem">
             <span>${tasksDone} of ${tasks.length} complete</span>
@@ -355,7 +355,7 @@ async function render() {
           return `<div style="border:1px solid #e2e8f0;border-radius:.65rem;padding:.9rem 1.1rem;margin-bottom:.6rem">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;flex-wrap:wrap">
               <div>
-                <div style="font-size:.95rem;font-weight:600">Week ${tk.week} â€” ${escapeHtml(tk.title)}</div>
+                <div style="font-size:.95rem;font-weight:600">Week ${tk.week} — ${escapeHtml(tk.title)}</div>
                 <div style="font-size:.78rem;color:#64748b;margin-top:.2rem">${escapeHtml(tk.desc||'')}</div>
               </div>
               <span style="background:${st.bg};color:${st.color};padding:.2rem .75rem;border-radius:1rem;font-size:.72rem;font-weight:600;white-space:nowrap">${st.label}</span>
@@ -379,9 +379,9 @@ async function render() {
       <div class="summary-section">
         <h2>Attendance</h2>
         <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem">
-          <span style="background:#dcfce7;color:#15803d;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">âœ“ Present: ${present}</span>
-          <span style="background:#fef9c3;color:#92400e;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">â± Late: ${late}</span>
-          <span style="background:#fee2e2;color:#b91c1c;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">âœ— Absent: ${absent}</span>
+          <span style="background:#dcfce7;color:#15803d;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">✓ Present: ${present}</span>
+          <span style="background:#fef9c3;color:#92400e;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">⏱ Late: ${late}</span>
+          <span style="background:#fee2e2;color:#b91c1c;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">✗ Absent: ${absent}</span>
           <span style="background:#eff6ff;color:#1d4ed8;padding:.3rem .85rem;border-radius:.5rem;font-size:.82rem;font-weight:600">Attendance Rate: ${pct}%</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.4rem">
@@ -410,7 +410,7 @@ async function render() {
       <div style="margin:.4rem 0"><span style="background:${trackBg};color:${trackColor};padding:.25rem .9rem;border-radius:1rem;font-size:.82rem;font-weight:600">${escapeHtml(trackLabel)}</span></div>
       <div class="meta">
         ${trainee.startDate ? `Started ${trainee.startDate}` : ''}
-        ${daysAtCompany !== null ? ` Â· ${daysAtCompany} days` : ''}
+        ${daysAtCompany !== null ? ` · ${daysAtCompany} days` : ''}
       </div>
       ${trainee.bio ? `<div class="bio">${escapeHtml(trainee.bio)}</div>` : ''}
     </div>
@@ -453,5 +453,3 @@ render();
 </script>
 </body>
 </html>
-
-
