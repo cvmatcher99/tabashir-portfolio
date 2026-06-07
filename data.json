@@ -225,7 +225,12 @@
         "submittedAt": null
       }
     ],
-    "attendance": []
+    "attendance": [
+      {
+        "date": "2026-06-07",
+        "status": "present"
+      }
+    ]
   },
   "H00416827": {
     "name": "Rashid Ali Shambeh Ramadan Alblooshi",
