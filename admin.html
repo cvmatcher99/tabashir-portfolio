@@ -123,12 +123,7 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
   <div style="display:flex;align-items:center;gap:.75rem">
     <span id="saveStatus" style="font-size:.78rem;color:#64748b"></span>
     <button onclick="promptToken()" style="padding:.35rem .75rem;border:1px solid #e2e8f0;border-radius:.5rem;background:#f8fafc;font-size:.78rem;cursor:pointer;font-family:inherit">⚙ Token</button>
-    <div style="display:flex;align-items:center;gap:.75rem">
-    <span id="saveStatus" style="font-size:.78rem;color:#64748b"></span>
-    <button onclick="promptToken()" style="padding:.35rem .75rem;border:1px solid #e2e8f0;border-radius:.5rem;background:#f8fafc;font-size:.78rem;cursor:pointer;font-family:inherit">⚙ Token</button>
-    <a href="portfolio.html" target="_blank" style="font-size:.8rem;color:#2563eb;text-decoration:none">View Portfolios ↗</a>
-  </div>
-  </div>
+    <a href="portfolio.html" target="_blank" style="font-size:.8rem;color:#2563eb;text-decoration:none">View Portfolios ↗</a></div>
 </div>
 
 <div class="container">
@@ -310,24 +305,29 @@ function showSaveStatus(msg, type) {
 }
 
 async function loadFromGitHub() {
-  const token = getToken();
-  const headers = { 'Accept': 'application/vnd.github.v3+json' };
-  if (token) headers['Authorization'] = 'Bearer ' + token;
   try {
-    const res = await fetch(GITHUB_API + '?t=' + Date.now(), { headers });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const raw = await fetch('https://raw.githubusercontent.com/' + GITHUB_REPO + '/' + GITHUB_BRANCH + '/' + DATA_FILE + '?t=' + Date.now());
+    if (raw.ok) {
+      PORTFOLIO_DATA = await raw.json();
+      const token = getToken();
+      if (token) {
+        fetch(GITHUB_API, { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' } })
+          .then(r => r.ok ? r.json() : null).then(info => { if (info && info.sha) FILE_SHA = info.sha; }).catch(()=>{});
+      }
+      return true;
+    }
+  } catch(e) {}
+  const token = getToken();
+  if (!token) return false;
+  try {
+    const res = await fetch(GITHUB_API + '?t=' + Date.now(), { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' } });
+    if (!res.ok) return false;
     const info = await res.json();
     FILE_SHA = info.sha;
-    PORTFOLIO_DATA = JSON.parse(atob(info.content.replace(/
-/g, '')));
+    PORTFOLIO_DATA = JSON.parse(atob(info.content.replace(/[
+]/g, '')));
     return true;
-  } catch(e) {
-    try {
-      const raw = await fetch('https://raw.githubusercontent.com/' + GITHUB_REPO + '/' + GITHUB_BRANCH + '/' + DATA_FILE + '?t=' + Date.now());
-      if (raw.ok) { PORTFOLIO_DATA = await raw.json(); return true; }
-    } catch(e2) {}
-    return false;
-  }
+  } catch(e) { return false; }
 }
 
 async function saveToGitHub() {
@@ -711,10 +711,12 @@ function seedStudents() {
 
 (async function init() {
   const el = document.getElementById('traineeList');
-  if (el) el.innerHTML = '<div class="empty-state"><p>Loading from GitHub...</p></div>';
-  const ok = await loadFromGitHub();
-  if (!ok && !getToken()) { promptToken(); }
-  if (!Object.keys(PORTFOLIO_DATA).length) { seedStudents(); }
+  if (el) el.innerHTML = '<div class="empty-state"><p>Loading...</p></div>';
+  await loadFromGitHub();
+  if (!Object.keys(PORTFOLIO_DATA).length) {
+    seedStudents();
+    if (!getToken()) showSaveStatus('Click Token to save changes', 'error');
+  }
   renderTrainees();
 })();
 </script>
