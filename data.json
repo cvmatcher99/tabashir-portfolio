@@ -112,7 +112,7 @@
         "title": "Database Audit",
         "desc": "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
         "status": "done",
-        "grade": null,
+        "grade": 100,
         "feedback": "",
         "submittedAt": null
       }
