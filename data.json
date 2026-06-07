@@ -63,7 +63,12 @@
         "submittedAt": null
       }
     ],
-    "attendance": []
+    "attendance": [
+      {
+        "date": "2026-06-07",
+        "status": "present"
+      }
+    ]
   },
   "H00422093": {
     "name": "Omar Salem Eissa Ali",
