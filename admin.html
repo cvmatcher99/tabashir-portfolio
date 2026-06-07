@@ -306,13 +306,14 @@ function showSaveStatus(msg, type) {
 
 async function loadFromGitHub() {
   try {
-    const raw = await fetch('https://raw.githubusercontent.com/' + GITHUB_REPO + '/' + GITHUB_BRANCH + '/' + DATA_FILE + '?t=' + Date.now());
+    const rawUrl = 'https://raw.githubusercontent.com/' + GITHUB_REPO + '/' + GITHUB_BRANCH + '/' + DATA_FILE + '?t=' + Date.now();
+    const raw = await fetch(rawUrl);
     if (raw.ok) {
       PORTFOLIO_DATA = await raw.json();
       const token = getToken();
       if (token) {
         fetch(GITHUB_API, { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' } })
-          .then(r => r.ok ? r.json() : null).then(info => { if (info && info.sha) FILE_SHA = info.sha; }).catch(()=>{});
+          .then(r => r.ok ? r.json() : null).then(info => { if (info && info.sha) FILE_SHA = info.sha; }).catch(function(){});
       }
       return true;
     }
@@ -324,12 +325,11 @@ async function loadFromGitHub() {
     if (!res.ok) return false;
     const info = await res.json();
     FILE_SHA = info.sha;
-    PORTFOLIO_DATA = JSON.parse(atob(info.content.replace(/[
-]/g, '')));
+    const b64 = info.content.split(String.fromCharCode(10)).join('').split(String.fromCharCode(13)).join('');
+    PORTFOLIO_DATA = JSON.parse(atob(b64));
     return true;
   } catch(e) { return false; }
 }
-
 async function saveToGitHub() {
   const token = getToken();
   if (!token) { showSaveStatus('No token set', 'error'); return false; }
@@ -361,8 +361,7 @@ function setData(d) { PORTFOLIO_DATA = d; saveToGitHub(); }
 
 function promptToken() {
   const current = getToken();
-  const token = prompt('Enter GitHub Personal Access Token (repo write access).
-Stored locally in this browser only.', current);
+  const token = prompt('Enter GitHub Personal Access Token (repo write access). Stored locally in this browser only.', current);
   if (token !== null && token.trim()) {
     localStorage.setItem(TOKEN_KEY, token.trim());
     loadFromGitHub().then(() => renderTrainees());
