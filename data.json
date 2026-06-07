@@ -219,7 +219,7 @@
         "week": 1,
         "title": "Requirements Analysis & System Design",
         "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
-        "status": "not_started",
+        "status": "done",
         "grade": null,
         "feedback": "",
         "submittedAt": null
