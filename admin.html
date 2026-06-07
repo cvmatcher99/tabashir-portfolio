@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio Maker — Admin Panel</title>
+<title>Portfolio Maker â€” Admin Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -119,8 +119,8 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
 <body>
 
 <div class="header">
-  <h1>📋 <span>Portfolio Maker</span> — Admin</h1>
-  <a href="portfolio.html" target="_blank" style="font-size:.8rem;color:#2563eb;text-decoration:none">View Portfolios ↗</a>
+  <h1>ðŸ“‹ <span>Portfolio Maker</span> â€” Admin</h1>
+  <a href="portfolio.html" target="_blank" style="font-size:.8rem;color:#2563eb;text-decoration:none">View Portfolios â†—</a>
 </div>
 
 <div class="container">
@@ -146,7 +146,7 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
               <h2 id="progressTitle">Trainee</h2>
               <div id="traineeTrackBadge" style="margin-top:.3rem"></div>
             </div>
-            <button class="btn btn-sm btn-secondary" onclick="viewPortfolio()">Portfolio ↗</button>
+            <button class="btn btn-sm btn-secondary" onclick="viewPortfolio()">Portfolio â†—</button>
           </div>
 
           <div class="tabs">
@@ -172,9 +172,9 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
           <div id="tab-attendance" class="tab-pane">
             <div class="att-controls">
               <input type="date" id="attDate">
-              <button class="att-btn present" onclick="markAttendance('present')">✓ Present</button>
-              <button class="att-btn late"    onclick="markAttendance('late')">⏱ Late</button>
-              <button class="att-btn absent"  onclick="markAttendance('absent')">✗ Absent</button>
+              <button class="att-btn present" onclick="markAttendance('present')">âœ“ Present</button>
+              <button class="att-btn late"    onclick="markAttendance('late')">â± Late</button>
+              <button class="att-btn absent"  onclick="markAttendance('absent')">âœ— Absent</button>
             </div>
             <div class="att-summary" id="attSummary"></div>
             <div class="att-log" id="attLog"></div>
@@ -253,9 +253,9 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
         <label>Rating (1-5)</label>
         <select id="pRating">
           <option value="0">No rating</option>
-          <option value="1">⭐</option><option value="2">⭐⭐</option>
-          <option value="3">⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option>
-          <option value="5">⭐⭐⭐⭐⭐</option>
+          <option value="1">â­</option><option value="2">â­â­</option>
+          <option value="3">â­â­â­</option><option value="4">â­â­â­â­</option>
+          <option value="5">â­â­â­â­â­</option>
         </select>
       </div>
       <div class="form-group full">
@@ -279,11 +279,87 @@ body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:
 </div>
 
 <script>
-const STORAGE_KEY = 'tabashir_portfolios';
-let selectedId = null, editingTraineeId = null, editingProgressIdx = null;
-let activeTab = 'progress';
+const GITHUB_REPO  = 'cvmatcher99/tabashir-portfolio';
+const GITHUB_BRANCH = 'main';
+const DATA_FILE    = 'data.json';
+const TOKEN_KEY    = 'tabashir_gh_token';
+const GITHUB_API   = 'https://api.github.com/repos/' + GITHUB_REPO + '/contents/' + DATA_FILE;
 
-// ── Task definitions per track ────────────────────────────────────────────
+let PORTFOLIO_DATA = {};
+let FILE_SHA       = null;
+let SAVING         = false;
+let selectedId     = null, editingTraineeId = null, editingProgressIdx = null;
+let activeTab      = 'progress';
+
+function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
+
+function showSaveStatus(msg, type) {
+  const el = document.getElementById('saveStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = type === 'success' ? '#16a34a' : type === 'error' ? '#dc2626' : '#64748b';
+  if (type === 'success') setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 3000);
+}
+
+async function loadFromGitHub() {
+  const token = getToken();
+  const headers = { 'Accept': 'application/vnd.github.v3+json' };
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  try {
+    const res = await fetch(GITHUB_API + '?t=' + Date.now(), { headers });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const info = await res.json();
+    FILE_SHA = info.sha;
+    PORTFOLIO_DATA = JSON.parse(atob(info.content.replace(/\n/g, '')));
+    return true;
+  } catch(e) {
+    try {
+      const raw = await fetch('https://raw.githubusercontent.com/' + GITHUB_REPO + '/' + GITHUB_BRANCH + '/' + DATA_FILE + '?t=' + Date.now());
+      if (raw.ok) { PORTFOLIO_DATA = await raw.json(); return true; }
+    } catch(e2) {}
+    return false;
+  }
+}
+
+async function saveToGitHub() {
+  const token = getToken();
+  if (!token) { showSaveStatus('No token set — click Token button', 'error'); return false; }
+  if (SAVING) return false;
+  SAVING = true;
+  showSaveStatus('Saving...', 'saving');
+  try {
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(PORTFOLIO_DATA, null, 2))));
+    const body = { message: 'Update portfolio data', content, branch: GITHUB_BRANCH };
+    if (FILE_SHA) body.sha = FILE_SHA;
+    const res = await fetch(GITHUB_API, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) { const err = await res.json(); throw new Error(err.message); }
+    const result = await res.json();
+    FILE_SHA = result.content.sha;
+    showSaveStatus('Saved to GitHub', 'success');
+    return true;
+  } catch(e) {
+    showSaveStatus('Error: ' + e.message, 'error');
+    return false;
+  } finally { SAVING = false; }
+}
+
+function getData() { return PORTFOLIO_DATA; }
+function setData(d) { PORTFOLIO_DATA = d; saveToGitHub(); }
+
+function promptToken() {
+  const current = getToken();
+  const token = prompt('Enter your GitHub Personal Access Token\n(needs repo write access -- stored only in this browser):', current);
+  if (token !== null && token.trim()) {
+    localStorage.setItem(TOKEN_KEY, token.trim());
+    loadFromGitHub().then(() => renderTrainees());
+  }
+}
+
+// â”€â”€ Task definitions per track â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const TRACK_TASKS = {
   appdev: [
     { id:'appdev-w1', week:1, title:'Requirements Analysis & System Design',
@@ -297,15 +373,13 @@ const TRACK_TASKS = {
 
 const TRACK_LABELS = { appdev:'Applications Development', security:'Security & Forensics' };
 
-// ── Storage ───────────────────────────────────────────────────────────────
-function getData() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-function setData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+// â”€â”€ Storage â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function genId()  { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 function initials(n) { return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
 function esc(s) { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-function renderStars(n){let s='';for(let i=1;i<=5;i++)s+=`<span class="star${i>n?' empty':''}">★</span>`;return`<span class="stars">${s}</span>`;}
+function renderStars(n){let s='';for(let i=1;i<=5;i++)s+=`<span class="star${i>n?' empty':''}">â˜…</span>`;return`<span class="stars">${s}</span>`;}
 
-// ── Tabs ──────────────────────────────────────────────────────────────────
+// â”€â”€ Tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function switchTab(tab, btn) {
   activeTab = tab;
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -316,7 +390,7 @@ function switchTab(tab, btn) {
   if (tab === 'attendance') renderAttendance();
 }
 
-// ── Trainee list ──────────────────────────────────────────────────────────
+// â”€â”€ Trainee list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function renderTrainees() {
   const data = getData(), ids = Object.keys(data);
   const el = document.getElementById('traineeList');
@@ -332,11 +406,11 @@ function renderTrainees() {
       <div class="trainee-avatar">${av}</div>
       <div class="trainee-info">
         <h3>${esc(t.name)}</h3>
-        <p><span class="track-badge ${trackCls}">${trackLbl}</span> · ${(t.progress||[]).length} entries · ${tasksDone}/${tasksTotal} tasks</p>
+        <p><span class="track-badge ${trackCls}">${trackLbl}</span> Â· ${(t.progress||[]).length} entries Â· ${tasksDone}/${tasksTotal} tasks</p>
       </div>
       <div class="trainee-actions">
-        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();editTrainee('${id}')">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteTrainee('${id}')">🗑</button>
+        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();editTrainee('${id}')">âœï¸</button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteTrainee('${id}')">ðŸ—‘</button>
       </div>
     </div>`;
   }).join('');
@@ -360,7 +434,7 @@ function selectTrainee(id) {
   document.getElementById('attDate').value = new Date().toISOString().slice(0,10);
 }
 
-// ── Progress tab ──────────────────────────────────────────────────────────
+// â”€â”€ Progress tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function renderProgress() {
   const data = getData(), t = data[selectedId];
   if (!t) return;
@@ -371,23 +445,23 @@ function renderProgress() {
     const ri = t.progress.indexOf(e);
     let extra='';
     if(e.image) extra+=`<div style="margin-top:.3rem"><img src="${esc(e.image)}" style="max-width:180px;border-radius:.3rem" alt=""></div>`;
-    if(e.link)  extra+=`<div style="margin-top:.2rem"><a href="${esc(e.link)}" target="_blank" style="font-size:.72rem;color:#2563eb">🔗 ${esc(e.link)}</a></div>`;
+    if(e.link)  extra+=`<div style="margin-top:.2rem"><a href="${esc(e.link)}" target="_blank" style="font-size:.72rem;color:#2563eb">ðŸ”— ${esc(e.link)}</a></div>`;
     return `<div class="progress-entry">
       <span class="entry-cat cat-${e.category}">${e.category}</span>
       <div class="entry-body">
         <h4>${esc(e.title)}</h4>
-        <div class="entry-meta">${e.date||''}${e.rating>0?' · '+renderStars(e.rating):''}</div>
+        <div class="entry-meta">${e.date||''}${e.rating>0?' Â· '+renderStars(e.rating):''}</div>
         ${e.description?`<p>${esc(e.description)}</p>`:''}${extra}
       </div>
       <div style="display:flex;gap:.25rem;flex-shrink:0">
-        <button class="btn btn-secondary btn-sm" onclick="editProgress(${ri})">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteProgress(${ri})">🗑</button>
+        <button class="btn btn-secondary btn-sm" onclick="editProgress(${ri})">âœï¸</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProgress(${ri})">ðŸ—‘</button>
       </div>
     </div>`;
   }).join('');
 }
 
-// ── Tasks tab ─────────────────────────────────────────────────────────────
+// â”€â”€ Tasks tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const STATUS_MAP = {
   not_started:{ label:'Not Started', cls:'active-ns' },
   in_progress:{ label:'In Progress', cls:'active-ip' },
@@ -409,14 +483,14 @@ function renderTasks() {
     return `<div class="task-card" id="task-card-${i}">
       <div class="task-header">
         <div>
-          <div class="task-title">Week ${tk.week} — ${esc(tk.title)}</div>
+          <div class="task-title">Week ${tk.week} â€” ${esc(tk.title)}</div>
           <div class="task-meta">${esc(tk.desc||'')}</div>
         </div>
       </div>
       <div class="task-status">${statusBtns}</div>
       <div class="grade-row">
-        <label>Grade (0–100)</label>
-        <input type="number" min="0" max="100" value="${tk.grade||''}" placeholder="—"
+        <label>Grade (0â€“100)</label>
+        <input type="number" min="0" max="100" value="${tk.grade||''}" placeholder="â€”"
           onchange="setTaskGrade(${i},this.value)">
       </div>
       <div class="feedback-row">
@@ -442,7 +516,7 @@ function setTaskFeedback(idx, val) {
   setData(data);
 }
 
-// ── Attendance tab ────────────────────────────────────────────────────────
+// â”€â”€ Attendance tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function markAttendance(status) {
   const date = document.getElementById('attDate').value;
   if (!date) return alert('Please select a date.');
@@ -464,9 +538,9 @@ function renderAttendance() {
   const absent  = att.filter(a=>a.status==='absent').length;
   const total   = att.length;
   document.getElementById('attSummary').innerHTML = total ? `
-    <span class="att-stat" style="background:#dcfce7;color:#15803d">✓ Present: ${present}</span>
-    <span class="att-stat" style="background:#fef9c3;color:#92400e">⏱ Late: ${late}</span>
-    <span class="att-stat" style="background:#fee2e2;color:#b91c1c">✗ Absent: ${absent}</span>
+    <span class="att-stat" style="background:#dcfce7;color:#15803d">âœ“ Present: ${present}</span>
+    <span class="att-stat" style="background:#fef9c3;color:#92400e">â± Late: ${late}</span>
+    <span class="att-stat" style="background:#fee2e2;color:#b91c1c">âœ— Absent: ${absent}</span>
     <span class="att-stat" style="background:#f1f5f9;color:#475569">Total: ${total} days</span>
   ` : '';
   document.getElementById('attLog').innerHTML = att.length
@@ -474,7 +548,7 @@ function renderAttendance() {
         <span class="att-date">${a.date}</span>
         <div style="display:flex;align-items:center;gap:.5rem">
           <span class="att-badge ${a.status}">${a.status.charAt(0).toUpperCase()+a.status.slice(1)}</span>
-          <button class="btn btn-danger btn-sm" onclick="deleteAttendance('${a.date}')">✕</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAttendance('${a.date}')">âœ•</button>
         </div>
       </div>`).join('')
     : '<div class="empty-state"><p>No attendance records yet.</p></div>';
@@ -486,7 +560,7 @@ function deleteAttendance(date) {
   setData(data); renderAttendance();
 }
 
-// ── Trainee CRUD ──────────────────────────────────────────────────────────
+// â”€â”€ Trainee CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openTraineeModal(id) {
   editingTraineeId = id||null;
   document.getElementById('traineeModalTitle').textContent = id?'Edit Trainee':'Add Trainee';
@@ -541,7 +615,7 @@ function deleteTrainee(id) {
   renderTrainees();
 }
 
-// ── Progress CRUD ─────────────────────────────────────────────────────────
+// â”€â”€ Progress CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openProgressModal(idx) {
   editingProgressIdx = idx!==undefined?idx:null;
   document.getElementById('progressModalTitle').textContent = idx!==undefined?'Edit Entry':'Add Progress Entry';
@@ -597,9 +671,9 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{
   o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); });
 });
 
-// ── Seed HCT Students ─────────────────────────────────────────────────────
+// â”€â”€ Seed HCT Students â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function seedStudents() {
-  if (Object.keys(getData()).length > 0) return;
+  if (Object.keys(PORTFOLIO_DATA).length > 0) return;
   const students = [
     { id:'H00462496', name:'Badir Mohamed Jabir Ahmed Almaazmi',    track:'security', email:'H00462496@hct.ac.ae', phone:'54-5071371' },
     { id:'H00446953', name:'Maryam Yaaser Obaid Khaddeim Alsamahi', track:'security', email:'H00446953@hct.ac.ae', phone:'50-8486555' },
@@ -625,8 +699,25 @@ function seedStudents() {
   setData(data);
 }
 
-seedStudents();
-renderTrainees();
+// Initialize: load from GitHub, seed if empty, render
+(async function init() {
+  const el = document.getElementById('traineeList');
+  if (el) el.innerHTML = '<div class="empty-state"><p>Loading data from GitHub...</p></div>';
+  const ok = await loadFromGitHub();
+  if (!ok && !getToken()) {
+    promptToken();
+  }
+  if (!Object.keys(PORTFOLIO_DATA).length) {
+    seedStudents();
+  }
+  renderTrainees();
+})();
 </script>
 </body>
 </html>
+
+
+
+
+
+
