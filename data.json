@@ -144,7 +144,12 @@
         "submittedAt": null
       }
     ],
-    "attendance": []
+    "attendance": [
+      {
+        "date": "2026-06-07",
+        "status": "present"
+      }
+    ]
   },
   "H00444932": {
     "name": "Eissa Saif Khalfan Mohammed Almarri",
