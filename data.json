@@ -41,7 +41,12 @@
         "submittedAt": null
       }
     ],
-    "attendance": []
+    "attendance": [
+      {
+        "date": "2026-06-07",
+        "status": "present"
+      }
+    ]
   },
   "H00441833": {
     "name": "Mitha Mohammed Marhoon Hamed Aleissaee",
