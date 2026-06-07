@@ -332,7 +332,7 @@ async function loadFromGitHub() {
 }
 async function saveToGitHub() {
   const token = getToken();
-  if (!token) { showSaveStatus('No token set', 'error'); return false; }
+  if (!token) { promptToken(); return false; }
   if (SAVING) return false;
   SAVING = true;
   showSaveStatus('Saving...', 'saving');
@@ -717,7 +717,6 @@ function seedStudents() {
     console.error('loadFromGitHub error:', e);
   }
   if (!Object.keys(PORTFOLIO_DATA).length) {
-    if (!getToken()) showSaveStatus('Click Token to save changes', 'error');
     const students = [
       { id:'H00462496', name:'Badir Mohamed Jabir Ahmed Almaazmi',    track:'security', email:'H00462496@hct.ac.ae', phone:'54-5071371' },
       { id:'H00446953', name:'Maryam Yaaser Obaid Khaddeim Alsamahi', track:'security', email:'H00446953@hct.ac.ae', phone:'50-8486555' },
