@@ -171,7 +171,12 @@
         "submittedAt": null
       }
     ],
-    "attendance": []
+    "attendance": [
+      {
+        "date": "2026-06-07",
+        "status": "present"
+      }
+    ]
   },
   "H00495227": {
     "name": "Hind Abdalla Hassan Abdalla Mohamad",
