@@ -1,262 +1,336 @@
-{
-  "H00462496": {
-    "name": "Badir Mohamed Jabir Ahmed Almaazmi",
-    "track": "security",
-    "role": "Security & Forensics",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00462496@hct.ac.ae | Phone: 54-5071371",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "sec-w1",
-        "week": 1,
-        "title": "Database Audit",
-        "desc": "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
-        "status": "not_started",
-        "grade": null,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": []
-  },
-  "H00446953": {
-    "name": "Maryam Yaaser Obaid Khaddeim Alsamahi",
-    "track": "security",
-    "role": "Security & Forensics",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00446953@hct.ac.ae | Phone: 50-8486555",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "sec-w1",
-        "week": 1,
-        "title": "Database Audit",
-        "desc": "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
-        "status": "done",
-        "grade": null,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00441833": {
-    "name": "Mitha Mohammed Marhoon Hamed Aleissaee",
-    "track": "security",
-    "role": "Security & Forensics",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00441833@hct.ac.ae | Phone: 56-2668833",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "sec-w1",
-        "week": 1,
-        "title": "Database Audit",
-        "desc": "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
-        "status": "done",
-        "grade": 100,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00422093": {
-    "name": "Omar Salem Eissa Ali",
-    "track": "security",
-    "role": "Security & Forensics",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00422093@hct.ac.ae | Phone: 52-6757955",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "sec-w1",
-        "week": 1,
-        "title": "Database Audit",
-        "desc": "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
-        "status": "done",
-        "grade": 100,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00428939": {
-    "name": "Sameera Khalid Ahmed Mohamed Alali",
-    "track": "security",
-    "role": "Security & Forensics",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00428939@hct.ac.ae | Phone: 50-4355954",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "sec-w1",
-        "week": 1,
-        "title": "Database Audit",
-        "desc": "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
-        "status": "done",
-        "grade": 100,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00469140": {
-    "name": "Amal Mohammed Ali Alghelili Alshehhi",
-    "track": "appdev",
-    "role": "Applications Development",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00469140@hct.ac.ae | Phone: 50-8034777",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "appdev-w1",
-        "week": 1,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
-        "status": "done",
-        "grade": null,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00444932": {
-    "name": "Eissa Saif Khalfan Mohammed Almarri",
-    "track": "appdev",
-    "role": "Applications Development",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00444932@hct.ac.ae | Phone: 55-5061330",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "appdev-w1",
-        "week": 1,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
-        "status": "done",
-        "grade": 100,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00495227": {
-    "name": "Hind Abdalla Hassan Abdalla Mohamad",
-    "track": "appdev",
-    "role": "Applications Development",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00495227@hct.ac.ae | Phone: 050-4749674",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "appdev-w1",
-        "week": 1,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
-        "status": "done",
-        "grade": 100,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00461769": {
-    "name": "Mahra Hassan Ali Salim Alrawi",
-    "track": "appdev",
-    "role": "Applications Development",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00461769@hct.ac.ae | Phone: 50-9623623",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "appdev-w1",
-        "week": 1,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
-        "status": "done",
-        "grade": 100,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": [
-      {
-        "date": "2026-06-07",
-        "status": "present"
-      }
-    ]
-  },
-  "H00416827": {
-    "name": "Rashid Ali Shambeh Ramadan Alblooshi",
-    "track": "appdev",
-    "role": "Applications Development",
-    "startDate": "2026-06-04",
-    "photo": "",
-    "bio": "Bachelor student, Computer & Information Science, Higher Colleges of Technology.\nEmail: H00416827@hct.ac.ae | Phone: 50-9722778",
-    "progress": [],
-    "tasks": [
-      {
-        "id": "appdev-w1",
-        "week": 1,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
-        "status": "not_started",
-        "grade": null,
-        "feedback": "",
-        "submittedAt": null
-      }
-    ],
-    "attendance": []
-  }
+﻿{
+    "H00462496":  {
+                      "name":  "Badir Mohamed Jabir Ahmed Almaazmi",
+                      "track":  "security",
+                      "role":  "Security \u0026 Forensics",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00462496@hct.ac.ae | Phone: 54-5071371",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "sec-w1",
+                                        "week":  1,
+                                        "title":  "Database Audit",
+                                        "desc":  "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
+                                        "status":  "not_started",
+                                        "grade":  null,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    },
+                                    {
+                                        "feedback":  "",
+                                        "week":  2,
+                                        "grade":  null,
+                                        "title":  "Security Remediation",
+                                        "submittedAt":  null,
+                                        "status":  "not_started",
+                                        "id":  "sec-w2",
+                                        "desc":  "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+                                    }
+                                ],
+                      "attendance":  [
+
+                                     ]
+                  },
+    "H00446953":  {
+                      "name":  "Maryam Yaaser Obaid Khaddeim Alsamahi",
+                      "track":  "security",
+                      "role":  "Security \u0026 Forensics",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00446953@hct.ac.ae | Phone: 50-8486555",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "sec-w1",
+                                        "week":  1,
+                                        "title":  "Database Audit",
+                                        "desc":  "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
+                                        "status":  "done",
+                                        "grade":  null,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    },
+                                    {
+                                        "feedback":  "",
+                                        "week":  2,
+                                        "grade":  null,
+                                        "title":  "Security Remediation",
+                                        "submittedAt":  null,
+                                        "status":  "not_started",
+                                        "id":  "sec-w2",
+                                        "desc":  "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00441833":  {
+                      "name":  "Mitha Mohammed Marhoon Hamed Aleissaee",
+                      "track":  "security",
+                      "role":  "Security \u0026 Forensics",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00441833@hct.ac.ae | Phone: 56-2668833",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "sec-w1",
+                                        "week":  1,
+                                        "title":  "Database Audit",
+                                        "desc":  "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
+                                        "status":  "done",
+                                        "grade":  100,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    },
+                                    {
+                                        "feedback":  "",
+                                        "week":  2,
+                                        "grade":  null,
+                                        "title":  "Security Remediation",
+                                        "submittedAt":  null,
+                                        "status":  "not_started",
+                                        "id":  "sec-w2",
+                                        "desc":  "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00422093":  {
+                      "name":  "Omar Salem Eissa Ali",
+                      "track":  "security",
+                      "role":  "Security \u0026 Forensics",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00422093@hct.ac.ae | Phone: 52-6757955",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "sec-w1",
+                                        "week":  1,
+                                        "title":  "Database Audit",
+                                        "desc":  "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
+                                        "status":  "done",
+                                        "grade":  100,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    },
+                                    {
+                                        "feedback":  "",
+                                        "week":  2,
+                                        "grade":  null,
+                                        "title":  "Security Remediation",
+                                        "submittedAt":  null,
+                                        "status":  "not_started",
+                                        "id":  "sec-w2",
+                                        "desc":  "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00428939":  {
+                      "name":  "Sameera Khalid Ahmed Mohamed Alali",
+                      "track":  "security",
+                      "role":  "Security \u0026 Forensics",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00428939@hct.ac.ae | Phone: 50-4355954",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "sec-w1",
+                                        "week":  1,
+                                        "title":  "Database Audit",
+                                        "desc":  "Perform a full security audit of the Tabashir PostgreSQL database and source code. Document roles, privileges, hardcoded credentials and sensitive data with severity ratings.",
+                                        "status":  "done",
+                                        "grade":  100,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    },
+                                    {
+                                        "feedback":  "",
+                                        "week":  2,
+                                        "grade":  null,
+                                        "title":  "Security Remediation",
+                                        "submittedAt":  null,
+                                        "status":  "not_started",
+                                        "id":  "sec-w2",
+                                        "desc":  "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00469140":  {
+                      "name":  "Amal Mohammed Ali Alghelili Alshehhi",
+                      "track":  "appdev",
+                      "role":  "Applications Development",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00469140@hct.ac.ae | Phone: 50-8034777",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "appdev-w1",
+                                        "week":  1,
+                                        "title":  "Requirements Analysis \u0026 System Design",
+                                        "desc":  "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+                                        "status":  "done",
+                                        "grade":  null,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00444932":  {
+                      "name":  "Eissa Saif Khalfan Mohammed Almarri",
+                      "track":  "appdev",
+                      "role":  "Applications Development",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00444932@hct.ac.ae | Phone: 55-5061330",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "appdev-w1",
+                                        "week":  1,
+                                        "title":  "Requirements Analysis \u0026 System Design",
+                                        "desc":  "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+                                        "status":  "done",
+                                        "grade":  100,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00495227":  {
+                      "name":  "Hind Abdalla Hassan Abdalla Mohamad",
+                      "track":  "appdev",
+                      "role":  "Applications Development",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00495227@hct.ac.ae | Phone: 050-4749674",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "appdev-w1",
+                                        "week":  1,
+                                        "title":  "Requirements Analysis \u0026 System Design",
+                                        "desc":  "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+                                        "status":  "done",
+                                        "grade":  100,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00461769":  {
+                      "name":  "Mahra Hassan Ali Salim Alrawi",
+                      "track":  "appdev",
+                      "role":  "Applications Development",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00461769@hct.ac.ae | Phone: 50-9623623",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "appdev-w1",
+                                        "week":  1,
+                                        "title":  "Requirements Analysis \u0026 System Design",
+                                        "desc":  "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+                                        "status":  "done",
+                                        "grade":  100,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    }
+                                ],
+                      "attendance":  [
+                                         {
+                                             "date":  "2026-06-07",
+                                             "status":  "present"
+                                         }
+                                     ]
+                  },
+    "H00416827":  {
+                      "name":  "Rashid Ali Shambeh Ramadan Alblooshi",
+                      "track":  "appdev",
+                      "role":  "Applications Development",
+                      "startDate":  "2026-06-04",
+                      "photo":  "",
+                      "bio":  "Bachelor student, Computer \u0026 Information Science, Higher Colleges of Technology.\nEmail: H00416827@hct.ac.ae | Phone: 50-9722778",
+                      "progress":  [
+
+                                   ],
+                      "tasks":  [
+                                    {
+                                        "id":  "appdev-w1",
+                                        "week":  1,
+                                        "title":  "Requirements Analysis \u0026 System Design",
+                                        "desc":  "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+                                        "status":  "not_started",
+                                        "grade":  null,
+                                        "feedback":  "",
+                                        "submittedAt":  null
+                                    }
+                                ],
+                      "attendance":  [
+
+                                     ]
+                  }
 }
