@@ -12,8 +12,10 @@ body{font-family:'Inter',sans-serif;background:#f1f5f9;color:#1e293b;min-height:
 /* ── Header ── */
 .header{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .header-left{display:flex;align-items:center;gap:.75rem}
-.header-logo{width:32px;height:32px;background:#2563eb;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:800;letter-spacing:.5px}
-.header h1{font-size:1rem;font-weight:700;color:#1e293b}
+.header-logo{display:flex;flex-direction:column;line-height:1}
+.header-logo .logo-main{font-size:1.15rem;font-weight:900;color:#000;letter-spacing:.08em;font-family:'Inter',sans-serif}
+.header-logo .logo-sub{font-size:.55rem;color:#555;font-family:Georgia,serif;letter-spacing:.05em;font-style:italic;margin-top:1px}
+.header h1{font-size:.85rem;font-weight:600;color:#64748b;border-left:1px solid #e2e8f0;padding-left:.75rem;margin-left:.25rem}
 .header h1 span{color:#2563eb}
 .header-right{display:flex;align-items:center;gap:1rem}
 .header-right a{font-size:.8rem;font-weight:500;color:#2563eb;text-decoration:none;padding:.3rem .75rem;border:1px solid #dbeafe;border-radius:6px;transition:all .15s}
@@ -210,8 +212,11 @@ tbody tr:hover td{background:#f8fafc}
 
 <div class="header">
   <div class="header-left">
-    <div class="header-logo">KPI</div>
-    <h1><span>Training</span> Dashboard</h1>
+    <div class="header-logo">
+      <span class="logo-main">TABASHIR</span>
+      <span class="logo-sub">Artificial Intelligence</span>
+    </div>
+    <h1><span>Training</span> KPI</h1>
   </div>
   <div class="header-right">
     <div class="pulse"><div class="pulse-dot"></div><span id="lastUpdated">Loading…</span></div>
