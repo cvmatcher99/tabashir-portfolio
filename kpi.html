@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabashir Training — KPI Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh}
+.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.header h1{font-size:1.15rem;font-weight:700;color:#2563eb}.header h1 span{color:#1e293b}
+.header-right{display:flex;align-items:center;gap:.75rem}
+.header-right a{font-size:.8rem;color:#2563eb;text-decoration:none}
+.last-updated{font-size:.75rem;color:#94a3b8}
+.container{max-width:1200px;margin:0 auto;padding:1.5rem}
+
+/* Summary cards */
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:#fff;border:1px solid #e2e8f0;border-radius:.75rem;padding:1.1rem 1.25rem}
+.stat-card .label{font-size:.72rem;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.35rem}
+.stat-card .value{font-size:2rem;font-weight:700;color:#1e293b;line-height:1}
+.stat-card .sub{font-size:.75rem;color:#64748b;margin-top:.35rem}
+.stat-card .bar{height:4px;background:#e2e8f0;border-radius:2px;margin-top:.65rem;overflow:hidden}
+.stat-card .bar-fill{height:100%;border-radius:2px;transition:width .6s ease}
+
+/* Section */
+.section{background:#fff;border:1px solid #e2e8f0;border-radius:.75rem;padding:1.25rem;margin-bottom:1.25rem}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.section-header h2{font-size:.95rem;font-weight:600;color:#1e293b}
+
+/* Track split */
+.track-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.track-card{border:1px solid #e2e8f0;border-radius:.6rem;padding:1rem}
+.track-title{font-size:.82rem;font-weight:600;margin-bottom:.65rem;display:flex;align-items:center;gap:.4rem}
+.track-stat-row{display:flex;justify-content:space-between;font-size:.78rem;color:#64748b;margin-bottom:.3rem}
+.track-stat-row span:last-child{font-weight:600;color:#1e293b}
+.prog-bar{height:6px;background:#e2e8f0;border-radius:3px;margin-top:.5rem;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px}
+.fill-blue{background:#2563eb}.fill-red{background:#dc2626}.fill-green{background:#16a34a}.fill-amber{background:#d97706}
+
+/* Trainee table */
+table{width:100%;border-collapse:collapse}
+th{font-size:.72rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;padding:.6rem .75rem;text-align:left;border-bottom:2px solid #e2e8f0}
+td{padding:.65rem .75rem;font-size:.82rem;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f8fafc}
+.badge{display:inline-block;padding:.18rem .6rem;border-radius:1rem;font-size:.65rem;font-weight:600}
+.badge-security{background:#fee2e2;color:#b91c1c}
+.badge-appdev{background:#dbeafe;color:#1d4ed8}
+.badge-done{background:#dcfce7;color:#15803d}
+.badge-ns{background:#f1f5f9;color:#64748b}
+.badge-ip{background:#fef9c3;color:#a16207}
+.grade-pill{display:inline-block;padding:.18rem .55rem;border-radius:.35rem;font-size:.78rem;font-weight:700;min-width:36px;text-align:center}
+.grade-a{background:#dcfce7;color:#15803d}
+.grade-b{background:#dbeafe;color:#1d4ed8}
+.grade-c{background:#fef9c3;color:#a16207}
+.grade-f{background:#fee2e2;color:#b91c1c}
+.grade-na{background:#f1f5f9;color:#94a3b8}
+
+/* Donut chart */
+.charts-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.chart-box{border:1px solid #e2e8f0;border-radius:.6rem;padding:1rem;text-align:center}
+.chart-box h3{font-size:.8rem;font-weight:600;color:#64748b;margin-bottom:.75rem}
+.donut-wrap{position:relative;width:100px;height:100px;margin:0 auto .75rem}
+.donut-wrap svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.2rem;font-weight:700;color:#1e293b}
+.legend{display:flex;flex-direction:column;gap:.3rem;text-align:left}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:#64748b}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* Attendance summary */
+.att-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem}
+.att-card{border:1px solid #e2e8f0;border-radius:.5rem;padding:.75rem}
+.att-card .att-name{font-size:.78rem;font-weight:600;margin-bottom:.4rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.att-mini-bar{display:flex;gap:2px;margin-bottom:.3rem}
+.att-dot{width:10px;height:10px;border-radius:2px}
+.att-dot.present{background:#16a34a}
+.att-dot.absent{background:#dc2626}
+.att-dot.late{background:#d97706}
+.att-dot.none{background:#e2e8f0}
+.att-pct{font-size:.72rem;color:#64748b}
+
+/* Empty */
+.empty{text-align:center;padding:2.5rem;color:#94a3b8;font-size:.85rem}
+
+/* Responsive */
+@media(max-width:768px){
+  .summary-grid{grid-template-columns:1fr 1fr}
+  .track-grid{grid-template-columns:1fr}
+  .charts-row{grid-template-columns:1fr}
+  .container{padding:1rem}
+  table{font-size:.78rem}
+  td,th{padding:.5rem .5rem}
+}
+@media(max-width:480px){
+  .summary-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 <span>Training KPI</span> — Dashboard</h1>
+  <div class="header-right">
+    <span class="last-updated" id="lastUpdated"></span>
+    <a href="admin.html">Admin ↗</a>
+    <a href="portfolio.html" target="_blank">Portfolios ↗</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Summary Cards -->
+  <div class="summary-grid" id="summaryGrid">
+    <div class="stat-card"><div class="label">Total Trainees</div><div class="value" id="kTotalTrainees">—</div><div class="sub" id="kTrackSplit">—</div></div>
+    <div class="stat-card"><div class="label">Task Completion</div><div class="value" id="kCompletion">—</div><div class="sub" id="kCompletionSub">—</div><div class="bar"><div class="bar-fill fill-blue" id="kCompBar" style="width:0%"></div></div></div>
+    <div class="stat-card"><div class="label">Average Grade</div><div class="value" id="kAvgGrade">—</div><div class="sub" id="kGradedSub">—</div><div class="bar"><div class="bar-fill fill-green" id="kGradeBar" style="width:0%"></div></div></div>
+    <div class="stat-card"><div class="label">Attendance Rate</div><div class="value" id="kAttRate">—</div><div class="sub" id="kAttSub">—</div><div class="bar"><div class="bar-fill fill-amber" id="kAttBar" style="width:0%"></div></div></div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="section">
+    <div class="section-header"><h2>Overview</h2></div>
+    <div class="charts-row">
+
+      <div class="chart-box">
+        <h3>Task Status</h3>
+        <div class="donut-wrap">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" stroke-width="14"/>
+            <circle id="donut1a" cx="50" cy="50" r="38" fill="none" stroke="#16a34a" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+            <circle id="donut1b" cx="50" cy="50" r="38" fill="none" stroke="#2563eb" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+            <circle id="donut1c" cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+          </svg>
+          <div class="donut-center" id="donut1center">—</div>
+        </div>
+        <div class="legend" id="legend1"></div>
+      </div>
+
+      <div class="chart-box">
+        <h3>Grade Distribution</h3>
+        <div class="donut-wrap">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" stroke-width="14"/>
+            <circle id="donut2a" cx="50" cy="50" r="38" fill="none" stroke="#15803d" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+            <circle id="donut2b" cx="50" cy="50" r="38" fill="none" stroke="#1d4ed8" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+            <circle id="donut2c" cx="50" cy="50" r="38" fill="none" stroke="#d97706" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+          </svg>
+          <div class="donut-center" id="donut2center">—</div>
+        </div>
+        <div class="legend" id="legend2"></div>
+      </div>
+
+      <div class="chart-box">
+        <h3>Track Breakdown</h3>
+        <div class="donut-wrap">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" stroke-width="14"/>
+            <circle id="donut3a" cx="50" cy="50" r="38" fill="none" stroke="#dc2626" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+            <circle id="donut3b" cx="50" cy="50" r="38" fill="none" stroke="#2563eb" stroke-width="14" stroke-dasharray="0 239" stroke-linecap="butt"/>
+          </svg>
+          <div class="donut-center" id="donut3center">—</div>
+        </div>
+        <div class="legend" id="legend3"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Track KPIs -->
+  <div class="section">
+    <div class="section-header"><h2>By Track</h2></div>
+    <div class="track-grid" id="trackGrid"></div>
+  </div>
+
+  <!-- Trainee Table -->
+  <div class="section">
+    <div class="section-header"><h2>Trainee Progress</h2></div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Track</th>
+            <th>Tasks Done</th>
+            <th>Avg Grade</th>
+            <th>Attendance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="traineeTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Attendance Detail -->
+  <div class="section">
+    <div class="section-header"><h2>Attendance Detail</h2></div>
+    <div class="att-grid" id="attGrid"></div>
+  </div>
+
+</div>
+
+<script>
+const DATA_URL = 'https://raw.githubusercontent.com/cvmatcher99/tabashir-portfolio/main/data.json';
+const CIRC = 2 * Math.PI * 38; // circumference
+
+async function loadData() {
+  try {
+    const r = await fetch(DATA_URL + '?t=' + Date.now());
+    return await r.json();
+  } catch(e) {
+    return null;
+  }
+}
+
+function gradeClass(g) {
+  if (g === null || g === undefined) return 'grade-na';
+  if (g >= 90) return 'grade-a';
+  if (g >= 75) return 'grade-b';
+  if (g >= 60) return 'grade-c';
+  return 'grade-f';
+}
+
+function gradeLabel(g) {
+  if (g === null || g === undefined) return 'N/A';
+  return g + '%';
+}
+
+function setDonutSegments(ids, values, colors, total, centerEl, centerTxt) {
+  let offset = 0;
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const pct = total > 0 ? values[i] / total : 0;
+    const dash = pct * CIRC;
+    el.setAttribute('stroke-dasharray', `${dash} ${CIRC - dash}`);
+    el.setAttribute('stroke-dashoffset', -offset);
+    offset += dash;
+  });
+  if (centerEl) document.getElementById(centerEl).textContent = centerTxt;
+}
+
+function makeLegend(id, items) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = items.map(it =>
+    `<div class="legend-item"><div class="legend-dot" style="background:${it.color}"></div>${it.label}: <strong>${it.val}</strong></div>`
+  ).join('');
+}
+
+async function render() {
+  const data = await loadData();
+  if (!data) { document.querySelector('.container').innerHTML = '<div class="empty">Could not load data.</div>'; return; }
+
+  const trainees = Object.entries(data).map(([id, t]) => ({ id, ...t }));
+  const total = trainees.length;
+
+  // Task stats
+  let doneCount = 0, ipCount = 0, nsCount = 0, gradedGrades = [];
+  trainees.forEach(t => {
+    (t.tasks || []).forEach(task => {
+      if (task.status === 'done') doneCount++;
+      else if (task.status === 'in_progress') ipCount++;
+      else nsCount++;
+      if (task.grade !== null && task.grade !== undefined) gradedGrades.push(task.grade);
+    });
+  });
+  const totalTasks = doneCount + ipCount + nsCount;
+  const compPct = totalTasks > 0 ? Math.round(doneCount / totalTasks * 100) : 0;
+  const avgGrade = gradedGrades.length > 0 ? Math.round(gradedGrades.reduce((a,b)=>a+b,0)/gradedGrades.length) : null;
+
+  // Attendance stats
+  let attPresent = 0, attAbsent = 0, attLate = 0;
+  trainees.forEach(t => {
+    (t.attendance || []).forEach(a => {
+      if (a.status === 'present') attPresent++;
+      else if (a.status === 'absent') attAbsent++;
+      else if (a.status === 'late') attLate++;
+    });
+  });
+  const attTotal = attPresent + attAbsent + attLate;
+  const attPct = attTotal > 0 ? Math.round(attPresent / attTotal * 100) : 0;
+
+  // Track split
+  const secCount = trainees.filter(t => t.track === 'security').length;
+  const appCount = trainees.filter(t => t.track === 'appdev').length;
+
+  // ── Summary cards
+  document.getElementById('kTotalTrainees').textContent = total;
+  document.getElementById('kTrackSplit').textContent = `${secCount} Security · ${appCount} App Dev`;
+  document.getElementById('kCompletion').textContent = compPct + '%';
+  document.getElementById('kCompletionSub').textContent = `${doneCount} of ${totalTasks} tasks done`;
+  document.getElementById('kCompBar').style.width = compPct + '%';
+  document.getElementById('kAvgGrade').textContent = avgGrade !== null ? avgGrade + '%' : '—';
+  document.getElementById('kGradedSub').textContent = gradedGrades.length > 0 ? `${gradedGrades.length} graded` : 'No grades yet';
+  document.getElementById('kGradeBar').style.width = (avgGrade || 0) + '%';
+  document.getElementById('kAttRate').textContent = attPct + '%';
+  document.getElementById('kAttSub').textContent = attTotal > 0 ? `${attPresent} present of ${attTotal} sessions` : 'No sessions yet';
+  document.getElementById('kAttBar').style.width = attPct + '%';
+  document.getElementById('lastUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+
+  // ── Donut 1: Task Status
+  setDonutSegments(['donut1a','donut1b','donut1c'],[doneCount,ipCount,nsCount],['#16a34a','#2563eb','#e2e8f0'],totalTasks,'donut1center',compPct+'%');
+  makeLegend('legend1',[{color:'#16a34a',label:'Done',val:doneCount},{color:'#2563eb',label:'In Progress',val:ipCount},{color:'#e2e8f0',label:'Not Started',val:nsCount}]);
+
+  // ── Donut 2: Grade distribution
+  const gradeA = gradedGrades.filter(g=>g>=90).length;
+  const gradeB = gradedGrades.filter(g=>g>=75&&g<90).length;
+  const gradeC = gradedGrades.filter(g=>g<75).length;
+  setDonutSegments(['donut2a','donut2b','donut2c'],[gradeA,gradeB,gradeC],['#15803d','#1d4ed8','#d97706'],gradedGrades.length,'donut2center',gradedGrades.length>0?(avgGrade+'%'):'—');
+  makeLegend('legend2',[{color:'#15803d',label:'A (90+)',val:gradeA},{color:'#1d4ed8',label:'B (75–89)',val:gradeB},{color:'#d97706',label:'Below 75',val:gradeC}]);
+
+  // ── Donut 3: Track
+  setDonutSegments(['donut3a','donut3b'],[secCount,appCount],['#dc2626','#2563eb'],total,'donut3center',total);
+  makeLegend('legend3',[{color:'#dc2626',label:'Security',val:secCount},{color:'#2563eb',label:'App Dev',val:appCount}]);
+
+  // ── Track cards
+  const tracks = [
+    {key:'security', label:'Security & Forensics', color:'#dc2626', fillClass:'fill-red'},
+    {key:'appdev',   label:'Applications Development', color:'#2563eb', fillClass:'fill-blue'}
+  ];
+  document.getElementById('trackGrid').innerHTML = tracks.map(tr => {
+    const members = trainees.filter(t => t.track === tr.key);
+    const tDone = members.reduce((s,t)=>s+(t.tasks||[]).filter(x=>x.status==='done').length,0);
+    const tTotal = members.reduce((s,t)=>s+(t.tasks||[]).length,0);
+    const tGrades = members.flatMap(t=>(t.tasks||[]).map(x=>x.grade).filter(g=>g!==null&&g!==undefined));
+    const tAvg = tGrades.length>0 ? Math.round(tGrades.reduce((a,b)=>a+b,0)/tGrades.length) : null;
+    const tAtt = members.reduce((s,t)=>s+(t.attendance||[]).filter(a=>a.status==='present').length,0);
+    const tAttTotal = members.reduce((s,t)=>s+(t.attendance||[]).length,0);
+    const tAttPct = tAttTotal>0 ? Math.round(tAtt/tAttTotal*100) : 0;
+    const tComp = tTotal>0 ? Math.round(tDone/tTotal*100) : 0;
+    return `<div class="track-card">
+      <div class="track-title" style="color:${tr.color}">● ${tr.label}</div>
+      <div class="track-stat-row"><span>Trainees</span><span>${members.length}</span></div>
+      <div class="track-stat-row"><span>Task Completion</span><span>${tComp}%</span></div>
+      <div class="track-stat-row"><span>Average Grade</span><span>${tAvg !== null ? tAvg+'%' : '—'}</span></div>
+      <div class="track-stat-row"><span>Attendance Rate</span><span>${tAttPct > 0 ? tAttPct+'%' : '—'}</span></div>
+      <div class="prog-bar"><div class="prog-fill ${tr.fillClass}" style="width:${tComp}%"></div></div>
+    </div>`;
+  }).join('');
+
+  // ── Trainee table
+  document.getElementById('traineeTableBody').innerHTML = trainees.map(t => {
+    const tasks = t.tasks || [];
+    const done = tasks.filter(x=>x.status==='done').length;
+    const grades = tasks.map(x=>x.grade).filter(g=>g!==null&&g!==undefined);
+    const avg = grades.length>0 ? Math.round(grades.reduce((a,b)=>a+b,0)/grades.length) : null;
+    const att = (t.attendance||[]);
+    const pres = att.filter(a=>a.status==='present').length;
+    const attPctT = att.length>0 ? Math.round(pres/att.length*100) : null;
+    const statusBadge = done === tasks.length && tasks.length > 0
+      ? '<span class="badge badge-done">On Track</span>'
+      : done > 0 ? '<span class="badge badge-ip">In Progress</span>'
+      : '<span class="badge badge-ns">Not Started</span>';
+    const shortName = t.name.split(' ').slice(0,2).join(' ');
+    return `<tr>
+      <td><strong>${shortName}</strong></td>
+      <td><span class="badge badge-${t.track}">${t.track==='security'?'Security':'App Dev'}</span></td>
+      <td>${done} / ${tasks.length}</td>
+      <td><span class="grade-pill ${gradeClass(avg)}">${gradeLabel(avg)}</span></td>
+      <td>${attPctT !== null ? attPctT+'%' : '—'}</td>
+      <td>${statusBadge}</td>
+    </tr>`;
+  }).join('');
+
+  // ── Attendance detail
+  document.getElementById('attGrid').innerHTML = trainees.map(t => {
+    const att = t.attendance || [];
+    const shortName = t.name.split(' ').slice(0,2).join(' ');
+    const pres = att.filter(a=>a.status==='present').length;
+    const pct = att.length > 0 ? Math.round(pres/att.length*100) : null;
+    const dots = att.length > 0
+      ? att.map(a=>`<div class="att-dot ${a.status}" title="${a.date}: ${a.status}"></div>`).join('')
+      : '<div class="att-dot none" title="No records"></div>';
+    return `<div class="att-card">
+      <div class="att-name" title="${t.name}">${shortName}</div>
+      <div class="att-mini-bar">${dots}</div>
+      <div class="att-pct">${pct !== null ? pct+'% attendance' : 'No records yet'}</div>
+    </div>`;
+  }).join('');
+}
+
+render();
+setInterval(render, 60000);
+</script>
+</body>
+</html>
