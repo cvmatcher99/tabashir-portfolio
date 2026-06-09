@@ -121,6 +121,9 @@ tbody tr:hover td{background:#f8fafc}
 .att-pct{font-size:.72rem;font-weight:600}
 .att-pct.good{color:#15803d}.att-pct.mid{color:#a16207}.att-pct.bad{color:#b91c1c}.att-pct.none{color:#94a3b8}
 
+/* ── Mobile cards (hidden by default, shown on mobile) ── */
+.mobile-cards{display:none}
+
 /* ── Empty ── */
 .empty{text-align:center;padding:3rem;color:#94a3b8;font-size:.875rem}
 
@@ -181,6 +184,14 @@ tbody tr:hover td{background:#f8fafc}
   /* Table → mobile cards */
   .table-wrap table{display:none}
   .mobile-cards{display:flex;flex-direction:column;gap:.6rem}
+  .m-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1rem 1.1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .m-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.75rem}
+  .m-card-name{font-size:.9rem;font-weight:700;color:#1e293b}
+  .m-card-id{font-size:.68rem;color:#94a3b8;margin-top:.15rem}
+  .m-card-rows{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem}
+  .m-card-row{display:flex;flex-direction:column;gap:.2rem}
+  .m-card-label{font-size:.63rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+  .m-card-val{font-size:.85rem;font-weight:600;color:#1e293b}
   .m-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:.9rem 1rem}
   .m-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem}
   .m-card-name{font-size:.85rem;font-weight:700;color:#1e293b}
