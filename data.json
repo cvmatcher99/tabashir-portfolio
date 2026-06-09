@@ -346,6 +346,16 @@
         "grade": null,
         "feedback": "",
         "submittedAt": null
+      },
+      {
+        "id": "appdev-w2",
+        "week": 2,
+        "title": "Requirements Analysis & System Design",
+        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -399,6 +409,16 @@
         "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
         "status": "done",
         "grade": 100,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "appdev-w2",
+        "week": 2,
+        "title": "Requirements Analysis & System Design",
+        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "status": "not_started",
+        "grade": null,
         "feedback": "",
         "submittedAt": null
       }
@@ -456,6 +476,16 @@
         "grade": 100,
         "feedback": "",
         "submittedAt": null
+      },
+      {
+        "id": "appdev-w2",
+        "week": 2,
+        "title": "Requirements Analysis & System Design",
+        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -511,6 +541,16 @@
         "grade": 100,
         "feedback": "",
         "submittedAt": null
+      },
+      {
+        "id": "appdev-w2",
+        "week": 2,
+        "title": "Requirements Analysis & System Design",
+        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -562,6 +602,16 @@
         "week": 1,
         "title": "Requirements Analysis & System Design",
         "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "appdev-w2",
+        "week": 2,
+        "title": "Requirements Analysis & System Design",
+        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
         "status": "not_started",
         "grade": null,
         "feedback": "",
