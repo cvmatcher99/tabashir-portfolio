@@ -414,6 +414,7 @@ async function render() {
   const avgGrade = gradedGrades.length > 0 ? Math.round(gradedGrades.reduce((a,b)=>a+b,0)/gradedGrades.length) : null;
 
   let attPresent=0, attAbsent=0, attLate=0;
+  const maxSessions = Math.max(...trainees.map(t => (t.attendance||[]).length), 1);
   trainees.forEach(t => {
     (t.attendance||[]).forEach(a => {
       if (a.status==='present') attPresent++;
@@ -421,7 +422,7 @@ async function render() {
       else if (a.status==='late') attLate++;
     });
   });
-  const attTotal = attPresent + attAbsent + attLate;
+  const attTotal = total * maxSessions;
   const attPct = attTotal > 0 ? Math.round(attPresent/attTotal*100) : 0;
   const secCount = trainees.filter(t=>t.track==='security').length;
   const appCount = trainees.filter(t=>t.track==='appdev').length;
@@ -486,7 +487,7 @@ async function render() {
     const avg = grades.length>0 ? Math.round(grades.reduce((a,b)=>a+b,0)/grades.length) : null;
     const att = t.attendance||[];
     const pres = att.filter(a=>a.status==='present').length;
-    const attPctT = att.length>0 ? Math.round(pres/att.length*100) : null;
+    const attPctT = Math.round(pres/maxSessions*100);
     const taskPct = tasks.length>0 ? Math.round(done/tasks.length*100) : 0;
     const status = done===tasks.length && tasks.length>0 ? '<span class="badge badge-done">On Track</span>'
       : done>0 ? '<span class="badge badge-ip">In Progress</span>'
@@ -497,7 +498,7 @@ async function render() {
       <td><span class="badge badge-${t.track}">${t.track==='security'?'Security':'App Dev'}</span></td>
       <td><div class="task-progress"><div class="mini-prog"><div class="mini-prog-fill" style="width:${taskPct}%"></div></div><span>${done}/${tasks.length}</span></div></td>
       <td><span class="grade-pill ${gradeClass(avg)}">${gradeLabel(avg)}</span></td>
-      <td>${attPctT!=null ? attPctT+'%' : '<span style="color:#94a3b8">—</span>'}</td>
+      <td>${pres} / ${maxSessions}</td>
       <td>${status}</td>
     </tr>`;
   }).join('');
@@ -524,29 +525,31 @@ async function render() {
         <div class="m-card-row"><div class="m-card-label">Track</div><div class="m-card-val"><span class="badge badge-${t.track}">${t.track==='security'?'Security':'App Dev'}</span></div></div>
         <div class="m-card-row"><div class="m-card-label">Tasks</div><div class="m-card-val">${done} / ${tasks.length}</div></div>
         <div class="m-card-row"><div class="m-card-label">Grade</div><div class="m-card-val"><span class="grade-pill ${gradeClass(avg)}">${gradeLabel(avg)}</span></div></div>
-        <div class="m-card-row"><div class="m-card-label">Attendance</div><div class="m-card-val">${attPctT!=null?attPctT+'%':'—'}</div></div>
+        <div class="m-card-row"><div class="m-card-label">Attendance</div><div class="m-card-val">${pres} / ${maxSessions}</div></div>
       </div>
     </div>`;
   }).join('');
 
   // Attendance detail
+  const totalSessions = Math.max(...trainees.map(t => (t.attendance||[]).length), 1);
   document.getElementById('attGrid').innerHTML = trainees.map(t => {
     const att = t.attendance||[];
     const pres = att.filter(a=>a.status==='present').length;
-    const pct = att.length>0 ? Math.round(pres/att.length*100) : null;
+    const pct = Math.round(pres/totalSessions*100);
     const shortName = t.name.split(' ').slice(0,2).join(' ');
     const avClass = t.track==='security' ? 'av-red' : 'av-blue';
-    const dots = att.length>0
-      ? att.map(a=>`<div class="att-dot ${a.status}" title="${a.date}: ${a.status}"></div>`).join('')
-      : '<div class="att-dot none"></div>';
-    const pctClass = pct==null ? 'none' : pct>=80 ? 'good' : pct>=60 ? 'mid' : 'bad';
+    const dots = Array.from({length: totalSessions}, (_, i) => {
+      const a = att[i];
+      return `<div class="att-dot ${a ? a.status : 'none'}" title="${a ? a.date+': '+a.status : 'absent'}"></div>`;
+    }).join('');
+    const pctClass = pct>=80 ? 'good' : pct>=60 ? 'mid' : 'bad';
     return `<div class="att-card">
       <div class="att-card-header">
         <div class="att-avatar ${avClass}">${initials(t.name)}</div>
         <div class="att-name" title="${t.name}">${shortName}</div>
       </div>
       <div class="att-dots">${dots}</div>
-      <div class="att-pct ${pctClass}">${pct!=null ? pct+'% attendance' : 'No records yet'}</div>
+      <div class="att-pct ${pctClass}">${pres} / ${totalSessions} days</div>
     </div>`;
   }).join('');
 }
