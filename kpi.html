@@ -130,17 +130,70 @@ tbody tr:hover td{background:#f8fafc}
   .charts-row{grid-template-columns:1fr 1fr}
   .charts-row .chart-box:last-child{grid-column:1/-1}
 }
+
+/* ── Mobile ── */
 @media(max-width:600px){
-  .summary-grid{grid-template-columns:1fr 1fr}
-  .charts-row{grid-template-columns:1fr}
-  .track-grid{grid-template-columns:1fr}
-  .container{padding:1rem}
-  .stat-value{font-size:1.75rem}
-  th,td{padding:.5rem .6rem}
-}
-@media(max-width:400px){
-  .summary-grid{grid-template-columns:1fr}
-  .header h1 span{display:none}
+  body{background:#f1f5f9}
+  .header{padding:0 1rem;height:52px}
+  .header h1{font-size:.9rem}
+  .header-logo{width:28px;height:28px;font-size:.65rem}
+  .pulse{display:none}
+  .header-right a{font-size:.75rem;padding:.25rem .6rem}
+
+  .container{padding:.75rem}
+
+  /* Cards 2 col compact */
+  .summary-grid{grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.85rem}
+  .stat-card{padding:.9rem 1rem;border-radius:10px}
+  .stat-card::before{height:3px}
+  .stat-icon{width:30px;height:30px;font-size:.85rem;margin-bottom:.6rem;border-radius:8px}
+  .stat-label{font-size:.62rem;margin-bottom:.2rem}
+  .stat-value{font-size:1.6rem}
+  .stat-sub{font-size:.68rem}
+
+  /* Section */
+  .section{padding:1rem;border-radius:10px;margin-bottom:.85rem}
+  .section-header{margin-bottom:.85rem}
+  .section-title{font-size:.82rem}
+
+  /* Charts: horizontal scroll row */
+  .charts-row{
+    display:flex;overflow-x:auto;gap:.75rem;
+    padding-bottom:.5rem;scroll-snap-type:x mandatory;
+  }
+  .charts-row::-webkit-scrollbar{height:3px}
+  .charts-row::-webkit-scrollbar-thumb{background:#e2e8f0;border-radius:2px}
+  .chart-box{
+    flex:0 0 200px;scroll-snap-align:start;
+    border-radius:10px;padding:1rem;
+  }
+  .donut-wrap{width:90px;height:90px}
+  .donut-wrap svg{width:90px;height:90px}
+  .donut-center{font-size:1.1rem}
+  .chart-box-title{font-size:.68rem;margin-bottom:.75rem}
+  .legend-item{font-size:.68rem}
+
+  /* Track cards stacked */
+  .track-grid{grid-template-columns:1fr;gap:.6rem}
+  .track-card{padding:1rem}
+  .track-name{font-size:.82rem}
+
+  /* Table → mobile cards */
+  .table-wrap table{display:none}
+  .mobile-cards{display:flex;flex-direction:column;gap:.6rem}
+  .m-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:.9rem 1rem}
+  .m-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem}
+  .m-card-name{font-size:.85rem;font-weight:700;color:#1e293b}
+  .m-card-id{font-size:.65rem;color:#94a3b8;margin-top:.1rem}
+  .m-card-rows{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+  .m-card-row{display:flex;flex-direction:column;gap:.15rem}
+  .m-card-label{font-size:.62rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+  .m-card-val{font-size:.82rem;font-weight:600;color:#1e293b}
+
+  /* Attendance */
+  .att-grid{grid-template-columns:1fr 1fr;gap:.6rem}
+  .att-card{padding:.75rem;border-radius:8px}
+  .att-dot{width:10px;height:10px}
 }
 </style>
 </head>
@@ -268,6 +321,7 @@ tbody tr:hover td{background:#f8fafc}
         </thead>
         <tbody id="traineeTableBody"></tbody>
       </table>
+      <div class="mobile-cards" id="mobileCards"></div>
     </div>
   </div>
 
@@ -434,6 +488,33 @@ async function render() {
       <td>${attPctT!=null ? attPctT+'%' : '<span style="color:#94a3b8">—</span>'}</td>
       <td>${status}</td>
     </tr>`;
+  }).join('');
+
+  // Mobile cards (replaces table on small screens)
+  document.getElementById('mobileCards').innerHTML = trainees.map(t => {
+    const tasks = t.tasks||[];
+    const done = tasks.filter(x=>x.status==='done').length;
+    const grades = tasks.map(x=>x.grade).filter(g=>g!=null);
+    const avg = grades.length>0 ? Math.round(grades.reduce((a,b)=>a+b,0)/grades.length) : null;
+    const att = t.attendance||[];
+    const pres = att.filter(a=>a.status==='present').length;
+    const attPctT = att.length>0 ? Math.round(pres/att.length*100) : null;
+    const shortName = t.name.split(' ').slice(0,2).join(' ');
+    const status = done===tasks.length && tasks.length>0 ? '<span class="badge badge-done">On Track</span>'
+      : done>0 ? '<span class="badge badge-ip">In Progress</span>'
+      : '<span class="badge badge-ns">Not Started</span>';
+    return `<div class="m-card">
+      <div class="m-card-top">
+        <div><div class="m-card-name">${shortName}</div><div class="m-card-id">${t.id}</div></div>
+        ${status}
+      </div>
+      <div class="m-card-rows">
+        <div class="m-card-row"><div class="m-card-label">Track</div><div class="m-card-val"><span class="badge badge-${t.track}">${t.track==='security'?'Security':'App Dev'}</span></div></div>
+        <div class="m-card-row"><div class="m-card-label">Tasks</div><div class="m-card-val">${done} / ${tasks.length}</div></div>
+        <div class="m-card-row"><div class="m-card-label">Grade</div><div class="m-card-val"><span class="grade-pill ${gradeClass(avg)}">${gradeLabel(avg)}</span></div></div>
+        <div class="m-card-row"><div class="m-card-label">Attendance</div><div class="m-card-val">${attPctT!=null?attPctT+'%':'—'}</div></div>
+      </div>
+    </div>`;
   }).join('');
 
   // Attendance detail
