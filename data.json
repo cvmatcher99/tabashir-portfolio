@@ -102,7 +102,7 @@
         "grade": null,
         "title": "Security Remediation",
         "submittedAt": null,
-        "status": "not_started",
+        "status": "in_progress",
         "id": "sec-w2",
         "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
       }
