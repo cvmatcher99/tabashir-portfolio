@@ -159,22 +159,20 @@ tbody tr:hover td{background:#f8fafc}
   .section-header{margin-bottom:.85rem}
   .section-title{font-size:.82rem}
 
-  /* Charts: horizontal scroll row */
-  .charts-row{
-    display:flex;overflow-x:auto;gap:.75rem;
-    padding-bottom:.5rem;scroll-snap-type:x mandatory;
-  }
-  .charts-row::-webkit-scrollbar{height:3px}
-  .charts-row::-webkit-scrollbar-thumb{background:#e2e8f0;border-radius:2px}
+  /* Charts: stack vertically, donut beside legend */
+  .charts-row{display:flex;flex-direction:column;gap:.6rem}
   .chart-box{
-    flex:0 0 200px;scroll-snap-align:start;
-    border-radius:10px;padding:1rem;
+    display:flex;align-items:center;gap:1rem;
+    text-align:left;padding:.85rem 1rem;
   }
-  .donut-wrap{width:90px;height:90px}
-  .donut-wrap svg{width:90px;height:90px}
-  .donut-center{font-size:1.1rem}
-  .chart-box-title{font-size:.68rem;margin-bottom:.75rem}
-  .legend-item{font-size:.68rem}
+  .chart-box-title{font-size:.7rem;margin-bottom:.5rem}
+  .donut-wrap{width:72px;height:72px;flex-shrink:0;margin:0}
+  .donut-wrap svg{width:72px;height:72px}
+  .donut-center{font-size:.95rem}
+  .donut-center small{font-size:.55rem}
+  .legend{flex:1}
+  .legend-item{font-size:.7rem}
+  .chart-content{display:flex;flex-direction:column;flex:1}
 
   /* Track cards stacked */
   .track-grid{grid-template-columns:1fr;gap:.6rem}
@@ -262,7 +260,6 @@ tbody tr:hover td{background:#f8fafc}
     <div class="charts-row">
 
       <div class="chart-box">
-        <div class="chart-box-title">Task Status</div>
         <div class="donut-wrap">
           <svg width="120" height="120" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="38" fill="none" stroke="#f1f5f9" stroke-width="13"/>
@@ -272,11 +269,10 @@ tbody tr:hover td{background:#f8fafc}
           </svg>
           <div class="donut-center"><span id="donut1center">—</span><small>done</small></div>
         </div>
-        <div class="legend" id="legend1"></div>
+        <div class="chart-content"><div class="chart-box-title">Task Status</div><div class="legend" id="legend1"></div></div>
       </div>
 
       <div class="chart-box">
-        <div class="chart-box-title">Grade Distribution</div>
         <div class="donut-wrap">
           <svg width="120" height="120" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="38" fill="none" stroke="#f1f5f9" stroke-width="13"/>
@@ -286,11 +282,10 @@ tbody tr:hover td{background:#f8fafc}
           </svg>
           <div class="donut-center"><span id="donut2center">—</span><small>avg</small></div>
         </div>
-        <div class="legend" id="legend2"></div>
+        <div class="chart-content"><div class="chart-box-title">Grade Distribution</div><div class="legend" id="legend2"></div></div>
       </div>
 
       <div class="chart-box">
-        <div class="chart-box-title">By Track</div>
         <div class="donut-wrap">
           <svg width="120" height="120" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="38" fill="none" stroke="#f1f5f9" stroke-width="13"/>
@@ -299,7 +294,7 @@ tbody tr:hover td{background:#f8fafc}
           </svg>
           <div class="donut-center"><span id="donut3center">—</span><small>total</small></div>
         </div>
-        <div class="legend" id="legend3"></div>
+        <div class="chart-content"><div class="chart-box-title">By Track</div><div class="legend" id="legend3"></div></div>
       </div>
 
     </div>
