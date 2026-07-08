@@ -19,14 +19,44 @@
         "submittedAt": null
       },
       {
-        "feedback": "",
-        "week": 2,
-        "grade": null,
-        "title": "Security Remediation",
-        "submittedAt": null,
-        "status": "in_progress",
         "id": "sec-w2",
-        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+        "week": 2,
+        "title": "Security Remediation",
+        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w3",
+        "week": 3,
+        "title": "Penetration Testing",
+        "desc": "Perform SQL injection testing, authentication bypass attempts, and session analysis on the Tabashir test environment. Document all findings with severity ratings and produce a penetration test report.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w4",
+        "week": 4,
+        "title": "CVSS Vulnerability Report",
+        "desc": "Score all vulnerabilities found in previous weeks using the CVSS framework. Produce a professional vulnerability report with executive summary, findings table, and prioritised recommendations.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w5",
+        "week": 5,
+        "title": "External Website Audit — tabashir.ae",
+        "desc": "Perform a full black-box external security audit of the live tabashir.ae website. Test HTTP security headers, SSL/TLS configuration, and DNS security records. Document all findings in a professional audit report.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -68,14 +98,44 @@
         "submittedAt": null
       },
       {
-        "feedback": "",
-        "week": 2,
-        "grade": null,
-        "title": "Security Remediation",
-        "submittedAt": null,
-        "status": "in_progress",
         "id": "sec-w2",
-        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+        "week": 2,
+        "title": "Security Remediation",
+        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "No submission received.",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w3",
+        "week": 3,
+        "title": "Penetration Testing",
+        "desc": "Perform SQL injection testing, authentication bypass attempts, and session analysis on the Tabashir test environment. Document all findings with severity ratings and produce a penetration test report.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w4",
+        "week": 4,
+        "title": "CVSS Vulnerability Report",
+        "desc": "Score all vulnerabilities found in previous weeks using the CVSS framework. Produce a professional vulnerability report with executive summary, findings table, and prioritised recommendations.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w5",
+        "week": 5,
+        "title": "External Website Audit — tabashir.ae",
+        "desc": "Perform a full black-box external security audit of the live tabashir.ae website. Test HTTP security headers, SSL/TLS configuration, and DNS security records. Document all findings in a professional audit report.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -125,14 +185,44 @@
         "submittedAt": null
       },
       {
-        "feedback": "",
-        "week": 2,
-        "grade": 84,
-        "title": "Security Remediation",
-        "submittedAt": "2026-06-14T18:00:00Z",
-        "status": "completed",
         "id": "sec-w2",
-        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+        "week": 2,
+        "title": "Security Remediation",
+        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles.",
+        "status": "completed",
+        "grade": 84,
+        "feedback": "",
+        "submittedAt": "2026-06-14T18:00:00Z"
+      },
+      {
+        "id": "sec-w3",
+        "week": 3,
+        "title": "Penetration Testing",
+        "desc": "Perform SQL injection testing, authentication bypass attempts, and session analysis on the Tabashir test environment. Document all findings with severity ratings and produce a penetration test report.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w4",
+        "week": 4,
+        "title": "CVSS Vulnerability Report",
+        "desc": "Score all vulnerabilities found in previous weeks using the CVSS framework. Produce a professional vulnerability report with executive summary, findings table, and prioritised recommendations.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w5",
+        "week": 5,
+        "title": "External Website Audit — tabashir.ae",
+        "desc": "Perform a full black-box external security audit of the live tabashir.ae website. Test HTTP security headers, SSL/TLS configuration, and DNS security records. Document all findings in a professional audit report.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -182,14 +272,44 @@
         "submittedAt": null
       },
       {
-        "feedback": "",
-        "week": 2,
-        "grade": 95,
-        "title": "Security Remediation",
-        "submittedAt": "2026-06-14T18:00:00Z",
-        "status": "completed",
         "id": "sec-w2",
-        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+        "week": 2,
+        "title": "Security Remediation",
+        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles.",
+        "status": "completed",
+        "grade": 95,
+        "feedback": "",
+        "submittedAt": "2026-06-14T18:00:00Z"
+      },
+      {
+        "id": "sec-w3",
+        "week": 3,
+        "title": "Penetration Testing",
+        "desc": "Perform SQL injection testing, authentication bypass attempts, and session analysis on the Tabashir test environment. Document all findings with severity ratings and produce a penetration test report.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w4",
+        "week": 4,
+        "title": "CVSS Vulnerability Report",
+        "desc": "Score all vulnerabilities found in previous weeks using the CVSS framework. Produce a professional vulnerability report with executive summary, findings table, and prioritised recommendations.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w5",
+        "week": 5,
+        "title": "External Website Audit — tabashir.ae",
+        "desc": "Perform a full black-box external security audit of the live tabashir.ae website. Test HTTP security headers, SSL/TLS configuration, and DNS security records. Document all findings in a professional audit report.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -239,14 +359,44 @@
         "submittedAt": null
       },
       {
-        "feedback": "",
-        "week": 2,
-        "grade": 90,
-        "title": "Security Remediation",
-        "submittedAt": "2026-06-14T18:00:00Z",
-        "status": "completed",
         "id": "sec-w2",
-        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles."
+        "week": 2,
+        "title": "Security Remediation",
+        "desc": "Fix the vulnerabilities found in Week 1. Move all hardcoded credentials to .env files, enable SSL on database connections, create a least-privilege PostgreSQL role (tabashir_app), and set password expiration on all roles.",
+        "status": "completed",
+        "grade": 90,
+        "feedback": "",
+        "submittedAt": "2026-06-14T18:00:00Z"
+      },
+      {
+        "id": "sec-w3",
+        "week": 3,
+        "title": "Penetration Testing",
+        "desc": "Perform SQL injection testing, authentication bypass attempts, and session analysis on the Tabashir test environment. Document all findings with severity ratings and produce a penetration test report.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w4",
+        "week": 4,
+        "title": "CVSS Vulnerability Report",
+        "desc": "Score all vulnerabilities found in previous weeks using the CVSS framework. Produce a professional vulnerability report with executive summary, findings table, and prioritised recommendations.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "sec-w5",
+        "week": 5,
+        "title": "External Website Audit — tabashir.ae",
+        "desc": "Perform a full black-box external security audit of the live tabashir.ae website. Test HTTP security headers, SSL/TLS configuration, and DNS security records. Document all findings in a professional audit report.",
+        "status": "not_started",
+        "grade": null,
+        "feedback": "",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -289,7 +439,7 @@
         "id": "appdev-w1",
         "week": 1,
         "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram.",
         "status": "done",
         "grade": null,
         "feedback": "",
@@ -298,12 +448,22 @@
       {
         "id": "appdev-w2",
         "week": 2,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "title": "System Design Deep Dive",
+        "desc": "Detailed requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
         "status": "completed",
         "grade": 92,
         "feedback": "",
         "submittedAt": "2026-06-14T18:00:00Z"
+      },
+      {
+        "id": "appdev-w3",
+        "week": 3,
+        "title": "Auto-Apply Performance Project — Smart Caching",
+        "desc": "Build a caching layer to prevent duplicate job applications. Store applied job URLs in a local cache file and check it before every application. Team project on shared GitHub repository.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "Assigned: feature/job-cache branch",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -346,7 +506,7 @@
         "id": "appdev-w1",
         "week": 1,
         "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram.",
         "status": "done",
         "grade": 100,
         "feedback": "",
@@ -355,12 +515,22 @@
       {
         "id": "appdev-w2",
         "week": 2,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "title": "System Design Deep Dive",
+        "desc": "Detailed requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
         "status": "completed",
         "grade": 90,
         "feedback": "",
         "submittedAt": "2026-06-14T18:00:00Z"
+      },
+      {
+        "id": "appdev-w3",
+        "week": 3,
+        "title": "Auto-Apply Performance Project — Parallel Processing (Lead)",
+        "desc": "Lead the parallel processing module. Convert sequential job application loop to run multiple jobs simultaneously using Python threading. Paired with Rashid. Team project on shared GitHub repository.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "Assigned: feature/parallel-apply branch (Lead)",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -399,7 +569,7 @@
         "id": "appdev-w1",
         "week": 1,
         "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram.",
         "status": "done",
         "grade": 100,
         "feedback": "",
@@ -408,11 +578,21 @@
       {
         "id": "appdev-w2",
         "week": 2,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
-        "status": "not_started",
+        "title": "System Design Deep Dive",
+        "desc": "Detailed requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+        "status": "in_progress",
         "grade": null,
-        "feedback": "",
+        "feedback": "Submitted GitHub PR #1 with macOS setup and dry-run testing documentation — showing initiative with the repository before formal submission.",
+        "submittedAt": null
+      },
+      {
+        "id": "appdev-w3",
+        "week": 3,
+        "title": "Auto-Apply Performance Project — Logging & Profile Validation",
+        "desc": "Add performance summary logging at end of each run and validate user_profile.json fields before the bot starts. Team project on shared GitHub repository.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "Assigned: feature/perf-logger branch",
         "submittedAt": null
       }
     ],
@@ -456,7 +636,7 @@
         "id": "appdev-w1",
         "week": 1,
         "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram.",
         "status": "done",
         "grade": 100,
         "feedback": "",
@@ -465,12 +645,22 @@
       {
         "id": "appdev-w2",
         "week": 2,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "title": "System Design Deep Dive",
+        "desc": "Detailed requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
         "status": "completed",
         "grade": 78,
         "feedback": "",
         "submittedAt": "2026-06-14T18:00:00Z"
+      },
+      {
+        "id": "appdev-w3",
+        "week": 3,
+        "title": "Auto-Apply Performance Project — Error Recovery & Retry",
+        "desc": "Add automatic retry logic for failed job applications. The system should retry up to 3 times on network errors before logging the failure. Team project on shared GitHub repository.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "Assigned: feature/retry-handler branch",
+        "submittedAt": null
       }
     ],
     "attendance": [
@@ -513,7 +703,7 @@
         "id": "appdev-w1",
         "week": 1,
         "title": "Requirements Analysis & System Design",
-        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
+        "desc": "Define the AI job-application system. Produce a requirements document and system architecture diagram.",
         "status": "not_started",
         "grade": null,
         "feedback": "",
@@ -522,11 +712,21 @@
       {
         "id": "appdev-w2",
         "week": 2,
-        "title": "Requirements Analysis & System Design",
-        "desc": "Define the full requirements for the AI job-application system. Produce a requirements document and detailed system architecture diagram covering data scraping, AI matching, DeepSeek integration, email automation and PostgreSQL database design.",
+        "title": "System Design Deep Dive",
+        "desc": "Detailed requirements document and system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
         "status": "not_started",
         "grade": null,
         "feedback": "",
+        "submittedAt": null
+      },
+      {
+        "id": "appdev-w3",
+        "week": 3,
+        "title": "Auto-Apply Performance Project — Parallel Processing (Pair)",
+        "desc": "Paired with Eissa on the parallel processing module. Responsible for testing, speed benchmarking, and documenting results. Team project on shared GitHub repository.",
+        "status": "in_progress",
+        "grade": null,
+        "feedback": "Assigned: feature/parallel-apply branch (Pair with Eissa)",
         "submittedAt": null
       }
     ],
