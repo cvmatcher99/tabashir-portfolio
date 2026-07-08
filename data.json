@@ -23,10 +23,10 @@
         "week": 2,
         "title": "Security Remediation",
         "desc": "Fix vulnerabilities found in Week 1. Move credentials to .env, enable SSL, create least-privilege PostgreSQL role.",
-        "status": "not_started",
+        "status": "completed",
         "grade": null,
         "feedback": "No submission received.",
-        "submittedAt": null
+        "submittedAt": "2026-07-08T18:00:00Z"
       },
       {
         "id": "sec-w3",
@@ -381,10 +381,10 @@
         "week": 3,
         "title": "Auto-Apply Performance Project - Smart Caching",
         "desc": "Build a caching layer to prevent duplicate job applications. Team project on shared GitHub repository.",
-        "status": "in_progress",
+        "status": "completed",
         "grade": null,
         "feedback": "Assigned: feature/job-cache branch",
-        "submittedAt": null
+        "submittedAt": "2026-07-08T18:00:00Z"
       }
     ],
     "attendance": [
@@ -448,10 +448,10 @@
         "week": 3,
         "title": "Auto-Apply Performance Project - Parallel Processing (Lead)",
         "desc": "Lead the parallel processing module. Paired with Rashid. Team project on shared GitHub repository.",
-        "status": "in_progress",
+        "status": "completed",
         "grade": null,
         "feedback": "Assigned: feature/parallel-apply branch (Lead)",
-        "submittedAt": null
+        "submittedAt": "2026-07-08T18:00:00Z"
       }
     ],
     "attendance": [
@@ -578,10 +578,10 @@
         "week": 3,
         "title": "Auto-Apply Performance Project - Error Recovery & Retry",
         "desc": "Add automatic retry logic for failed job applications. Team project on shared GitHub repository.",
-        "status": "in_progress",
+        "status": "completed",
         "grade": null,
         "feedback": "Assigned: feature/retry-handler branch",
-        "submittedAt": null
+        "submittedAt": "2026-07-08T18:00:00Z"
       }
     ],
     "attendance": [
@@ -625,7 +625,7 @@
         "week": 1,
         "title": "Requirements Analysis & System Design",
         "desc": "Define the AI job-application system.",
-        "status": "pending",
+        "status": "done",
         "grade": null,
         "feedback": "",
         "submittedAt": null
@@ -635,7 +635,7 @@
         "week": 2,
         "title": "System Design Deep Dive",
         "desc": "Detailed system architecture diagram covering scraping, AI matching, DeepSeek, email and PostgreSQL.",
-        "status": "pending",
+        "status": "done",
         "grade": null,
         "feedback": "",
         "submittedAt": null
@@ -645,10 +645,10 @@
         "week": 3,
         "title": "Auto-Apply Performance Project - Parallel Processing (Pair)",
         "desc": "Paired with Eissa on parallel processing. Responsible for testing, benchmarking, and documentation.",
-        "status": "in_progress",
+        "status": "completed",
         "grade": null,
         "feedback": "Assigned: feature/parallel-apply branch (Pair with Eissa)",
-        "submittedAt": null
+        "submittedAt": "2026-07-08T18:00:00Z"
       }
     ],
     "attendance": [
@@ -704,10 +704,10 @@
         "week": 3,
         "title": "Auto-Apply Performance Project - Integration Test",
         "desc": "Write the final integration test that runs all modules together end-to-end. Team project on shared GitHub repository.",
-        "status": "in_progress",
+        "status": "completed",
         "grade": null,
         "feedback": "Assigned: feature/integration-test branch",
-        "submittedAt": null
+        "submittedAt": "2026-07-08T18:00:00Z"
       }
     ],
     "attendance": [
