@@ -403,7 +403,7 @@ async function render() {
   let doneCount=0, ipCount=0, nsCount=0, gradedGrades=[];
   trainees.forEach(t => {
     (t.tasks||[]).forEach(task => {
-      if (task.status==='done') doneCount++;
+      if (task.status==='done'||task.status==='completed') doneCount++;
       else if (task.status==='in_progress') ipCount++;
       else nsCount++;
       if (task.grade != null) gradedGrades.push(task.grade);
@@ -459,7 +459,7 @@ async function render() {
   ];
   document.getElementById('trackGrid').innerHTML = tracks.map(tr => {
     const members = trainees.filter(t=>t.track===tr.key);
-    const tDone = members.reduce((s,t)=>s+(t.tasks||[]).filter(x=>x.status==='done').length,0);
+    const tDone = members.reduce((s,t)=>s+(t.tasks||[]).filter(x=>x.status==='done'||x.status==='completed').length,0);
     const tTotal = members.reduce((s,t)=>s+(t.tasks||[]).length,0);
     const tGrades = members.flatMap(t=>(t.tasks||[]).map(x=>x.grade).filter(g=>g!=null));
     const tAvg = tGrades.length>0 ? Math.round(tGrades.reduce((a,b)=>a+b,0)/tGrades.length) : null;
@@ -482,7 +482,7 @@ async function render() {
   // Trainee table
   document.getElementById('traineeTableBody').innerHTML = trainees.map(t => {
     const tasks = t.tasks||[];
-    const done = tasks.filter(x=>x.status==='done').length;
+    const done = tasks.filter(x=>x.status==='done'||x.status==='completed').length;
     const grades = tasks.map(x=>x.grade).filter(g=>g!=null);
     const avg = grades.length>0 ? Math.round(grades.reduce((a,b)=>a+b,0)/grades.length) : null;
     const att = t.attendance||[];
@@ -506,7 +506,7 @@ async function render() {
   // Mobile cards (replaces table on small screens)
   document.getElementById('mobileCards').innerHTML = trainees.map(t => {
     const tasks = t.tasks||[];
-    const done = tasks.filter(x=>x.status==='done').length;
+    const done = tasks.filter(x=>x.status==='done'||x.status==='completed').length;
     const grades = tasks.map(x=>x.grade).filter(g=>g!=null);
     const avg = grades.length>0 ? Math.round(grades.reduce((a,b)=>a+b,0)/grades.length) : null;
     const att = t.attendance||[];
